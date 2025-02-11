@@ -1,0 +1,58 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: flashcards-db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: flashcards
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    ports:
+      - "9906:9906"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin:5.2.0
+    container_name: pma_container
+    depends_on:
+      - mysql
+    environment:
+      PMA_HOST: mysql
+      PMA_PORT: 9906
+      PMA_ARBITRARY: 1
+    restart: always
+    ports:
+      - "9000:80"
+
+  nodejs:
+    build:
+      context: .
+      dockerfile: nodejs.dockerfile
+    user: "node"
+    working_dir: /home/node/app
+    environment:
+     #- NODE_ENV=production
+      - NODE_ENV=development
+    volumes:   
+      - ./app:/home/node/app
+      - /home/node/app/node_modules
+    expose:
+      - "9999"
+    ports: 
+      - "9999:9999"
+    command: "npm start"
+    #command: "npm run dev"
+    depends_on:
+      - mysql
+
+volumes:
+  mysql_data:
+
+
+
+  
+
