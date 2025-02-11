@@ -1,10 +1,10 @@
-//import { Sequelize, DataTypes } from "sequelize";
-//import { products } from "./mock-product.js";
-//import { ProductModel } from "../model/products.js";
-//import bcrypt from "bcrypt";
-//import { UserModel } from "../model/UserModel.js";
+import { Sequelize, DataTypes } from "sequelize";
+import { products } from "./mock-product.js";
+import { ProductModel } from "../model/products.js";
+import bcrypt from "bcrypt";
+import { UserModel } from "../model/UserModel.js";
 const sequelize = new Sequelize(
-  "db_products", // Nom de la DB qui doit exister
+  "db_books", // Nom de la DB qui doit exister
   "root", // Nom de l'utilisateur
   "root", // Mot de passe de l'utilisateur
   {
@@ -16,18 +16,20 @@ const sequelize = new Sequelize(
 );
 // Le modèle product
 const Product = ProductModel(sequelize, DataTypes);
+
 let initDb = () => {
   return sequelize
     .sync({ force: true }) // Force la synchro => donc supprime les données également
     .then((_) => {
       importProducts();
       importUsers();
-      console.log("La base de données db_products a bien été synchronisée");
+      console.log("La base de données db_books a bien été synchronisée");
     });
 };
 const importProducts = () => {
   // import tous les produits présents dans le fichier db/mock-product
   products.map((product) => {
+    //equivalent insert into
     Product.create({
       name: product.name,
       price: product.price,
@@ -35,6 +37,7 @@ const importProducts = () => {
   });
 };
 const User = UserModel(sequelize, DataTypes);
+
 const importUsers = () => {
   bcrypt
     .hash("etml", 10) // temps pour hasher = du sel
