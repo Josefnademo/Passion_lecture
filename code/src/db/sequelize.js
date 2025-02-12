@@ -1,6 +1,6 @@
 import { Sequelize, DataTypes } from "sequelize";
 import { products } from "./mock-product.js";
-import { LivreModel } from "../model/products.js";
+import { LivreModel } from "../model/livres.js";
 import bcrypt from "bcrypt";
 import { UserModel } from "../model/UserModel.js";
 const sequelize = new Sequelize(
