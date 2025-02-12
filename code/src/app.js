@@ -1,15 +1,15 @@
 import express from "express";
-import { sequelize, initDb, Product } from "./db/sequelize.js";
-import { productsRouter } from "./routes/products.js";
+import { sequelize, initDb, Book } from "./db/sequelize.js";
+import { booksRouter as bookRouter } from "./routes/products.js";
 import { loginRouter } from "./routes/login.js";
 import { swaggerSpec } from "./swagger.js";
 import swaggerUi from "swagger-ui-express";
 const app = express();
 
 app.use(express.json());
-const port = 3000;
+const port = 9999;
 
-app.use("/api/products", productsRouter);
+app.use("/api/products", bookRouter);
 app.use("/api/login", loginRouter);
 app.use(
   "/api-docs",
@@ -31,7 +31,7 @@ app.get("/api/", (req, res) => {
   res.redirect(`http://localhost:${port}/`);
 });
 
-app.use("/api/products", productsRouter);
+app.use("/api/books/ ", bookRouter);
 
 app.use(({ res }) => {
   const message =

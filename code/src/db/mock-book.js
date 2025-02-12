@@ -1,4 +1,4 @@
-let products = [
+let books = [
   {
     id: 1,
     titre: "Fourth Wing (The Empyrean, 1)",
@@ -51,4 +51,4 @@ let products = [
   },
 ];
 
-export { products };
+export { books };
