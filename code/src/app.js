@@ -7,7 +7,7 @@ import swaggerUi from "swagger-ui-express";
 const app = express();
 
 app.use(express.json());
-const port = 3000;
+const port = 9999;
 
 app.use("/api/products", productsRouter);
 app.use("/api/login", loginRouter);
