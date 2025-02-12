@@ -1,18 +1,18 @@
 // https://sequelize.org/docs/v7/models/data-types/
-const ProductModel = (sequelize, DataTypes) => {
+const LivreModel = (sequelize, DataTypes) => {
   return sequelize.define(
-    "Product",
+    "Livre",
     {
-      id: {
+      livre_id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
       },
-      name: {
+      titre: {
         type: DataTypes.STRING,
         allowNull: false,
         unique: {
-          msg: "Ce nom est déjà pris.",
+          msg: "Ce titre est déjà pris.",
         },
         validate: {
           is: {
@@ -20,19 +20,19 @@ const ProductModel = (sequelize, DataTypes) => {
             msg: "Seules les lettres et les espaces sont autorisées.",
           },
           notEmpty: {
-            msg: "Le nom ne peut pas être vide.",
+            msg: "Le titre ne peut pas être vide.",
           },
           notNull: {
             msg: "Le nom est une propriété obligatoire.",
           },
         },
       },
-      price: {
+      annee_edition: {
         type: DataTypes.FLOAT,
         allowNull: false,
         validate: {
           isFloat: {
-            msg: "Utilisez uniquement des nombres pour le prix.",
+            msg: "Utilisez uniquement des nombres pour la date.",
           },
           notEmpty: {
             msg: "Le prix ne peut pas être vide.",
@@ -40,13 +40,40 @@ const ProductModel = (sequelize, DataTypes) => {
           notNull: {
             msg: "Le prix est une propriété obligatoire.",
           },
-          min: {
-            args: [1.0],
-            msg: "Le prix doit être supérieur à 1$.",
-          },
           max: {
-            args: [1000.0],
-            msg: "Le prix doit être inférieur à 1000$.",
+            args: [2025.0],
+            msg: "L'année doit être antérieure à 2025",
+          },
+        },
+      },
+      lien_image: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      lien_pdf: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      resume: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      editeur: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      nombre_de_page: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        validate: {
+          isInteger: {
+            msg: "utilisez uniquement des chiffres pour le nombre de pages.",
+          },
+          notEmpty: {
+            msg: "un livre doit avoir un nombre de pages.",
+          },
+          notNull: {
+            msg: "Le nombre de pages est une propriété obligatoire.",
           },
         },
       },
@@ -54,8 +81,8 @@ const ProductModel = (sequelize, DataTypes) => {
     {
       timestamps: true,
       createdAt: "created",
-      updatedAt: false,
+      updatedAt: true,
     }
   );
 };
-export { ProductModel };
+export { LivreModel };

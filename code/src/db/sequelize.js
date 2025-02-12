@@ -1,6 +1,6 @@
 import { Sequelize, DataTypes } from "sequelize";
 import { products } from "./mock-product.js";
-import { ProductModel } from "../model/products.js";
+import { LivreModel } from "../model/products.js";
 import bcrypt from "bcrypt";
 import { UserModel } from "../model/UserModel.js";
 const sequelize = new Sequelize(
@@ -15,7 +15,7 @@ const sequelize = new Sequelize(
   }
 );
 // Le modèle product
-const Product = ProductModel(sequelize, DataTypes);
+const Product = LivreModel(sequelize, DataTypes);
 
 let initDb = () => {
   return sequelize
