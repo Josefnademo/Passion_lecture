@@ -1,4 +1,4 @@
-let products = [
+let books = [
   {
     id: 1,
     name: "Big Mac",
@@ -31,4 +31,4 @@ let products = [
   },
 ];
 
-export { products };
+export { books };

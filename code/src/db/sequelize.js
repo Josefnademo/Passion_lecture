@@ -1,5 +1,5 @@
 import { Sequelize, DataTypes } from "sequelize";
-import { products } from "./mock-product.js";
+import { books as books } from "./mock-book.js";
 import { LivreModel } from "../model/livres.js";
 import bcrypt from "bcrypt";
 import { UserModel } from "../model/UserModel.js";
@@ -15,25 +15,25 @@ const sequelize = new Sequelize(
   }
 );
 // Le modèle product
-const Product = LivreModel(sequelize, DataTypes);
+const Book = LivreModel(sequelize, DataTypes);
 
 let initDb = () => {
   return sequelize
     .sync({ force: true }) // Force la synchro => donc supprime les données également
     .then((_) => {
-      importProducts();
+      importBooks();
       importUsers();
       console.log("La base de données db_books a bien été synchronisée");
     });
 };
-const importProducts = () => {
+const importBooks = () => {
   // import tous les produits présents dans le fichier db/mock-product
-  products.map((product) => {
+  books.map((book) => {
     //equivalent insert into
-    Product.create({
-      name: product.name,
-      price: product.price,
-    }).then((product) => console.log(product.toJSON()));
+    Book.create({
+      name: book.name,
+      price: book.price,
+    }).then((book) => console.log(book.toJSON()));
   });
 };
 const User = UserModel(sequelize, DataTypes);
@@ -49,4 +49,4 @@ const importUsers = () => {
     )
     .then((user) => console.log(user.toJSON()));
 };
-export { sequelize, initDb, Product, importUsers, User };
+export { sequelize, initDb, Book as Book, importUsers, User };
