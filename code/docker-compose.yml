@@ -17,12 +17,12 @@ services:
 
   phpmyadmin:
     image: phpmyadmin:5.2.0
-    container_name: pma_container
+    container_name: phpmyadmin_container
     depends_on:
       - mysql
     environment:
       PMA_HOST: mysql
-      PMA_PORT: 9906
+      PMA_PORT: 9000
       PMA_ARBITRARY: 1
     restart: always
     ports:

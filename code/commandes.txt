@@ -1,5 +1,5 @@
 npm start
-http://localhost:3000/api/products/  /*sert a voir les produits depuis un navigateur*/
+http://localhost:9999/api/books/  /*sert a voir les books depuis un navigateur*/
 
 insatller insomia, express et nodemon
 
