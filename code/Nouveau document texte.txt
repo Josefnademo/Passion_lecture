@@ -1,0 +1,63 @@
+recherche: 
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../css/style.css" />
+    <title>Admin - Recherche d'utilisateur</title>
+  </head>
+  <body>
+    <h1>Page Admin</h1>
+
+    <form class="admin" action="/search-user" method="POST">
+      <label for="username">Rechercher un utilisateur :</label>
+      <input type="text" id="username" name="username" required />
+      <button type="submit">Rechercher</button>
+    </form>
+
+    <div class="admin">
+      <% if (error) { %>
+      <p style="color: red"><%= error %></p>
+      <% } %> <% if (user) { %>
+      <h2>Informations de l'utilisateur :</h2>
+      <p><strong>ID :</strong> <%= user.id %></p>
+      <p><strong>Nom d'utilisateur :</strong> <%= user.username %></p>
+      <p><strong>Rôle :</strong> <%= user.role %></p>
+      <p><strong>Créé le :</strong> <%= user.created_at %></p>
+      <p><strong>Dernière mise à jour :</strong> <%= user.updated_at %></p>
+      <% } %>
+    </div>
+  </body>
+</html>
+
+// Route pour afficher la page admin
+app.get("/admin", (req, res) => {
+  res.render("admin", { user: null, error: "" }); //No users displayed on initial load. No error messages at start.
+});
+
+
+/ Route pour rechercher un utilisateur
+app.post("/search-user", (req, res) => {
+  const { username } = req.body;
+
+  const query = "SELECT * FROM Users WHERE username = ?";
+  db.query(query, [username], (err, results) => {
+    if (err) {
+      console.error("Erreur lors de la recherche :", err);
+      return res.render("admin", {
+        user: null,
+        error: "Erreur interne du serveur",
+      });
+    }
+
+    if (results.length === 0) {
+      return res.render("admin", {
+        user: null,
+        error: "Utilisateur non trouvé",
+      });
+    }
+
+    res.render("admin", { user: results[0], error: "" });
+  });
+});
