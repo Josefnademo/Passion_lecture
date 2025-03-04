@@ -1,4 +1,4 @@
-// Import des modules
+/*// Import des modules
 const express = require("express");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
@@ -94,4 +94,4 @@ router.get("/categories/:id/books", async (req, res) => {
   res.json(books);
 });
 
-module.exports = router;
+module.exports = router;*/

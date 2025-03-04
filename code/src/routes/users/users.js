@@ -20,6 +20,14 @@ router.post("/register", async (req, res) => {
         type: sequelize.QueryTypes.INSERT,
       }
     );
+    /*    const newUser = await User.create({                                                  //versino sequelize
+       username: req.body.username,  // Get the username from the request body
+       password: hashedPassword,     // You should hash the password before storing it
+});
+
+console.log("-- New User --");
+console.log(newUser.toJSON());  // Output the newly created user
+ */
 
     res.status(201).json({ message: "User registered successfully" });
   } catch (error) {
@@ -29,6 +37,7 @@ router.post("/register", async (req, res) => {
 
 //Obtenir une liste de tous les utilisateurs
 router.get("/", async (req, res) => {
+  /* const users = await User.findAll({attributes:['id','username'],});  //versino sequelize*/
   try {
     const users = await sequelize.query("SELECT id, username FROM users", {
       type: sequelize.QueryTypes.SELECT,
@@ -52,6 +61,12 @@ router.post("/:id/comments", async (req, res) => {
         type: sequelize.QueryTypes.INSERT,
       }
     );
+
+    /*const newComment = await Comment.create({
+  user_id: req.params.id,     // Get the user_id from the URL parameter
+  book_id: req.body.book_id,  // Get the book_id from the request body
+  content: req.body.content,  // Get the content from the request body
+});  //versino sequelize*/
 
     res.status(201).json({ message: "Comment added successfully" });
   } catch (error) {
