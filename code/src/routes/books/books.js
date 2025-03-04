@@ -2,8 +2,62 @@ import express from "express";
 import { sequelize, Book } from "../../db/sequelize.js";
 import { auth } from "../../auth/auth.js";
 import { success } from "../helper.js";
-//const router = express.Router();
 const bookRouter = express();
+
+bookRouter.post(
+  "/",
+  /*auth,*/ (req, res) => {
+    Book.create(req.body)
+      .then((createdBook) => {
+        // Définir un message pour le consommateur de l'API REST
+        const message = `Le produit ${createdBook.titre} a bien été créé !`;
+        // Retourner la réponse HTTP en json avec le msg et le produit créé
+        res.json(success(message, createdBook));
+      })
+      .catch((error) => {
+        /*if (error instanceof ValidationError) {
+          return res.status(400).json({ message: error.message, data: error });
+        }*/
+        const message =
+          "Le produit n'a pas pu être ajouté. Merci de réessayer dans quelques instants.";
+        res.status(500).json({ message, data: error });
+      });
+  }
+);
+bookRouter.get(
+  "/",
+  /*auth,*/ (req, res) => {
+    if (req.query.name) {
+      if (req.query.name.length < 2) {
+        const message = `Le terme de la recherche doit contenir au moins 2 caractères`;
+        return res.status(400).json({ message });
+      }
+      let limit = 3;
+      if (req.query.limit) {
+        limit = parseInt(req.query.limit);
+      }
+      return Product.findAndCountAll({
+        where: { titre: { [Op.like]: `%${req.query.name}%` } },
+        order: ["titre"],
+        limit: limit,
+      }).then((books) => {
+        const message = `Il y a ${books.count} produits qui correspondent au terme de la recherche`;
+        res.json(success(message, books));
+      });
+    }
+    Book.findAll({ order: ["livre_id"] })
+      .then((books) => {
+        const message = "La liste des produits a bien été récupérée.";
+        res.json(success(message, books));
+      })
+      .catch((error) => {
+        const message =
+          "La liste des produits n'a pas pu être récupérée. Merci de réessayer dans quelques instants.";
+        res.status(500).json({ message, data: error });
+      });
+  }
+);
+
 bookRouter.get(
   "/:id",
   /*auth,*/ (req, res) => {
@@ -26,6 +80,7 @@ bookRouter.get(
       });
   }
 );
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*router.get("/", async (req, res) => {
   try {

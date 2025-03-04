@@ -16,7 +16,7 @@ const BookModel = (sequelize, DataTypes) => {
         },
         validate: {
           is: {
-            args: /^[A-Za-z\s&]*$/,
+            //args: /^[A-Za-z\s&]*$/,
             msg: "Seules les lettres et les espaces sont autorisées.",
           },
           notEmpty: {
