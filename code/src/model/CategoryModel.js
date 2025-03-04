@@ -1,4 +1,4 @@
-const CategorieModel = (sequelize, DataTypes) => {
+const CategoryModel = (sequelize, DataTypes) => {
   return sequelize.define(
     "t_category",
     {
@@ -18,3 +18,4 @@ const CategorieModel = (sequelize, DataTypes) => {
     { freezeTableName: true }
   );
 };
+export { CategoryModel };

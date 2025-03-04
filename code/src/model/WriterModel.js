@@ -15,3 +15,4 @@ const WriterModel = (sequelize, DataTypes) => {
     },
   });
 };
+export { WriterModel };
