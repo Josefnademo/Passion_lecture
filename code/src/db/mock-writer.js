@@ -11,5 +11,13 @@ let writers = [
     prenom: "Vimil-eeet",
     nom_de_famille: "dunon non mi",
   },
+  {
+    prenom: "Amid-vulcain-charbon",
+    nom_de_famille: "Dupondt",
+  },
+  {
+    prenom: "Jean",
+    nom_de_famille: "dunon non m",
+  },
 ];
 export { writers };
