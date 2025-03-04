@@ -1,9 +1,33 @@
 import express from "express";
-import { sequelize } from "../../db/sequelize.js";
+import { sequelize, Book } from "../../db/sequelize.js";
+import { auth } from "../../auth/auth.js";
+import { success } from "../helper.js";
+//const router = express.Router();
+const bookRouter = express();
+bookRouter.get(
+  "/:id",
+  /*auth,*/ (req, res) => {
+    Book.findByPk(req.params.id)
+      .then((book) => {
+        if (book === null) {
+          const message =
+            "Le produit demandé n'existe pas. Merci de réessayer avec un autre identifiant.";
+          // A noter ici le return pour interrompre l'exécution du code
+          return res.status(404).json({ message });
+        }
 
-const router = express.Router();
-
-router.get("/", async (req, res) => {
+        const message = `Le produit dont l'id vaut ${book.livre_id} a bien été récupéré.`;
+        res.json(success(message, book));
+      })
+      .catch((error) => {
+        const message =
+          "Le produit n'a pas pu être récupéré. Merci de réessayer dans quelques instants.";
+        res.status(500).json({ message, data: error });
+      });
+  }
+);
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/*router.get("/", async (req, res) => {
   try {
     const books = await sequelize.query("SELECT * FROM books", {
       type: sequelize.QueryTypes.SELECT,
@@ -14,7 +38,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.get("/:id", async (req, res) => {
+/*router.get("/:id", async (req, res) => {
   try {
     const book = await sequelize.query("SELECT * FROM books WHERE id = ?", {
       replacements: [req.params.id],
@@ -28,9 +52,9 @@ router.get("/:id", async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: "Database error" });
   }
-});
+});*/
 
-router.post("/", async (req, res) => {
+/*router.post("/", async (req, res) => {
   try {
     const { title, author_id, category_id } = req.body;
     await sequelize.query(
@@ -79,6 +103,5 @@ router.delete("/:id", async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: "Database error" });
   }
-});
-
-export default router;
+});*/
+export default bookRouter;
