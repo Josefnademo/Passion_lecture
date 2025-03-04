@@ -5,6 +5,7 @@ import { books as books } from "./mock-book.js";
 import { categories as categories } from "./mock-category.js";
 import { writers as writers } from "./mock-writer.js";
 import { users as users } from "./mock-user.js";
+import { evaluations as evaluations } from "./mock-evaluate.js";
 //modèles
 import { BookModel } from "../model/BookModel.js";
 import { CategoryModel } from "../model/CategoryModel.js";
@@ -13,7 +14,7 @@ import { UserModel } from "../model/UserModel.js";
 import { EvaluateModel } from "../model/EvaluateModel.js";
 
 const sequelize = new Sequelize(
-  "db_books_test", // Nom de la DB qui doit exister
+  "db_books", // Nom de la DB qui doit exister
   "root", // Nom de l'utilisateur
   "root", // Mot de passe de l'utilisateur
   {
@@ -41,6 +42,7 @@ let initDb = () => {
       importUsers();
       importCategory();
       importWriter();
+      importEval();
       console.log("La base de données db_books a bien été synchronisée");
     });
 };
@@ -86,4 +88,12 @@ const importWriter = () => {
     });
   });
 };
-export { sequelize, initDb, Book as Book, importUsers, User };
+const importEval = () => {
+  evaluations.map((evaluation) => {
+    Evaluate.create({
+      commentaire: evaluation.commentaire,
+      note: evaluation.note,
+    });
+  });
+};
+export { sequelize, initDb, Book, importUsers, User };
