@@ -1,12 +1,17 @@
 import { Sequelize, DataTypes } from "sequelize";
+import bcrypt from "bcrypt";
+//mocks
 import { books as books } from "./mock-book.js";
-import { categories } from "./mock-category.js";
+import { categories as categories } from "./mock-category.js";
+import { writers as writers } from "./mock-writer.js";
+import { users as users } from "./mock-user.js";
+//modèles
 import { BookModel } from "../model/BookModel.js";
 import { CategoryModel } from "../model/CategoryModel.js";
 import { WriterModel } from "../model/WriterModel.js";
 import { UserModel } from "../model/UserModel.js";
 import { EvaluateModel } from "../model/EvaluateModel.js";
-import bcrypt from "bcrypt";
+
 const sequelize = new Sequelize(
   "db_books_test", // Nom de la DB qui doit exister
   "root", // Nom de l'utilisateur
@@ -35,6 +40,7 @@ let initDb = () => {
       importBooks();
       importUsers();
       importCategory();
+      importWriter();
       console.log("La base de données db_books a bien été synchronisée");
     });
 };
@@ -51,22 +57,32 @@ const importBooks = () => {
 };
 
 const importUsers = () => {
-  bcrypt
-    .hash("etml", 10) // temps pour hasher = du sel
-    .then((hash) =>
-      User.create({
-        username: "etml",
-        hashed_password: hash,
-        isAdmin: false,
-      })
-    )
-    .then((user) => console.log(user.toJSON()));
+  users.map((user) => {
+    bcrypt
+      .hash(user.username, 10) // temps pour hasher = du sel
+      .then((hash) =>
+        User.create({
+          username: user.username,
+          hashed_password: hash,
+          isAdmin: user.isAdmin,
+        })
+      )
+      .then((user) => console.log(user.toJSON()));
+  });
 };
 const importCategory = () => {
   //equivalent insert into
   categories.map((category) => {
     Category.create({
       nom: category.nom,
+    });
+  });
+};
+const importWriter = () => {
+  writers.map((writer) => {
+    Writer.create({
+      prenom: writer.prenom,
+      nom_de_famille: writer.nom_de_famille,
     });
   });
 };
