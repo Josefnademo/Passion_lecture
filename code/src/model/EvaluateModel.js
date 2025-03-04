@@ -18,3 +18,4 @@ const EvaluateModel = (sequelize, DataTypes) => {
     },
   });
 };
+export { EvaluateModel };
