@@ -1,10 +1,10 @@
 import { Sequelize, DataTypes } from "sequelize";
 import { books as books } from "./mock-book.js";
-import { LivreModel } from "../model/livres.js";
+import { BookModel } from "../model/BookModel.js";
 import bcrypt from "bcrypt";
 import { UserModel } from "../model/UserModel.js";
 const sequelize = new Sequelize(
-  "db_books", // Nom de la DB qui doit exister
+  "db_books_test", // Nom de la DB qui doit exister
   "root", // Nom de l'utilisateur
   "root", // Mot de passe de l'utilisateur
   {
@@ -15,7 +15,7 @@ const sequelize = new Sequelize(
   }
 );
 // Le modèle product
-const Book = LivreModel(sequelize, DataTypes);
+const Book = BookModel(sequelize, DataTypes);
 
 let initDb = () => {
   return sequelize
@@ -31,8 +31,9 @@ const importBooks = () => {
   books.map((book) => {
     //equivalent insert into
     Book.create({
-      name: book.name,
-      price: book.price,
+      titre: book.titre,
+      annee_edition: book.annee_edition,
+      nombre_de_page: book.nombre_de_page,
     }).then((book) => console.log(book.toJSON()));
   });
 };
@@ -44,7 +45,8 @@ const importUsers = () => {
     .then((hash) =>
       User.create({
         username: "etml",
-        password: hash,
+        hashed_password: hash,
+        isAdmin: false,
       })
     )
     .then((user) => console.log(user.toJSON()));

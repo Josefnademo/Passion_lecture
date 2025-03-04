@@ -1,6 +1,6 @@
 const UserModel = (sequelize, DataTypes) => {
   return sequelize.define(
-    "User",
+    "t_user",
     {
       utilisateur_id: {
         type: DataTypes.INTEGER,
@@ -27,6 +27,7 @@ const UserModel = (sequelize, DataTypes) => {
       timestamps: true,
       createdAt: "date_creation",
       updatedAt: false,
+      freezeTableName: true,
     }
   );
 };

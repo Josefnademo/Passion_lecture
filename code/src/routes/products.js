@@ -1,5 +1,5 @@
 import express from "express";
-import { products } from "../db/mock-product.js";
+import { books } from "../db/mock-book.js";
 import { success } from "./helper.js";
 import { sequelize, initDb, Book as Book } from "../db/sequelize.js";
 import { ValidationError, Op } from "sequelize";

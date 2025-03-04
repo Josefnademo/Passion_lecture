@@ -1,7 +1,7 @@
 // https://sequelize.org/docs/v7/models/data-types/
-const LivreModel = (sequelize, DataTypes) => {
+const BookModel = (sequelize, DataTypes) => {
   return sequelize.define(
-    "Livre",
+    "t_livre",
     {
       livre_id: {
         type: DataTypes.INTEGER,
@@ -66,7 +66,7 @@ const LivreModel = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         allowNull: false,
         validate: {
-          isInteger: {
+          isInt: {
             msg: "utilisez uniquement des chiffres pour le nombre de pages.",
           },
           notEmpty: {
@@ -82,7 +82,8 @@ const LivreModel = (sequelize, DataTypes) => {
       timestamps: true,
       createdAt: "created",
       updatedAt: true,
+      freezeTableName: true,
     }
   );
 };
-export { LivreModel };
+export { BookModel };
