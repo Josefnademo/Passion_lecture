@@ -1,10 +1,12 @@
 import express from "express";
+import { swaggerSpec } from "./swagger.js";
+import swaggerUi from "swagger-ui-express";
 import { sequelize, initDb, Book } from "./db/sequelize.js";
 import bookRouter from "./routes/books/books.js";
 import commentRouter from "./routes/books/comments.js";
 import noteRouter from "./routes/books/notes.js";
 import categoryRouter from "./routes/categories/categories.js";
-import authorRouter from "./routes/authors/authors.js";
+//import authorRouter from "./routes/authors/authors.js";
 import userRouter from "./routes/users/users.js";
 import loginRouter from "./routes/auth/login.js";
 const app = express();
@@ -16,7 +18,7 @@ app.use("/api/books", bookRouter);
 app.use("/api/books/:id/comments", commentRouter);
 app.use("/api/books/:id/notes", noteRouter);
 app.use("/api/categories", categoryRouter);
-app.use("/api/authors", authorRouter);
+//app.use("/api/authors", authorRouter);
 app.use("/api/users", userRouter);
 app.use("/api/auth/login", loginRouter);
 
