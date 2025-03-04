@@ -1,35 +1,33 @@
 import express from "express";
-import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { User } from "../db/sequelize.js";
-import { privateKey } from "../auth/private_key.js";
-const loginRouter = express();
-loginRouter.post("/", (req, res) => {
-  User.findOne({ where: { username: req.body.username } })
-    .then((user) => {
-      if (!user) {
-        const message = `L'utilisateur demandé n'existe pas`;
-        return res.status(404).json({ message });
+import bcrypt from "bcrypt";
+import { sequelize } from "../../db/sequelize.js";
+
+const router = express.Router();
+
+router.post("/", async (req, res) => {
+  try {
+    const { username, password } = req.body;
+    const [user] = await sequelize.query(
+      "SELECT * FROM users WHERE username = ?",
+      {
+        replacements: [username],
+        type: sequelize.QueryTypes.SELECT,
       }
-      bcrypt
-        .compare(req.body.password, user.password)
-        .then((isPasswordValid) => {
-          if (!isPasswordValid) {
-            const message = `Le mot de passe est incorrecte.`;
-            return res.status(401).json({ message });
-          } else {
-            // JWT
-            const token = jwt.sign({ userId: user.id }, privateKey, {
-              expiresIn: "1y",
-            });
-            const message = `L'utilisateur a été connecté avec succès`;
-            return res.json({ message, data: user, token });
-          }
-        });
-    })
-    .catch((error) => {
-      const message = `L'utilisateur n'a pas pu être connecté. Réessayez dans quelques instants`;
-      return res.json({ message, data: error });
+    );
+
+    if (!user || !(await bcrypt.compare(password, user.password))) {
+      return res.status(400).json({ message: "Invalid credentials" });
+    }
+
+    const token = jwt.sign({ userId: user.id }, "yourSecretKey", {
+      expiresIn: "24h",
     });
+
+    res.json({ message: "Login successful", token });
+  } catch (error) {
+    res.status(500).json({ message: "Database error" });
+  }
 });
-export { loginRouter };
+
+export default router;
