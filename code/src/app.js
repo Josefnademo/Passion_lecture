@@ -1,6 +1,5 @@
 import express from "express";
-import { swaggerSpec } from "./swagger.js";
-import swaggerUi from "swagger-ui-express";
+
 import { sequelize, initDb, Book } from "./db/sequelize.js";
 import bookRouter from "./routes/books/books.js";
 import commentRouter from "./routes/books/comments.js";
@@ -22,11 +21,6 @@ app.use("/api/categories", categoryRouter);
 app.use("/api/users", userRouter);
 app.use("/api/auth/login", loginRouter);
 
-app.use(
-  "/api-docs",
-  swaggerUi.serve,
-  swaggerUi.setup(swaggerSpec, { explorer: true })
-);
 sequelize
   .authenticate()
   .then((_) =>
