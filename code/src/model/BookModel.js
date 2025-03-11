@@ -1,6 +1,8 @@
+import { CategoryModel } from "./CategoryModel";
+
 // https://sequelize.org/docs/v7/models/data-types/
 const BookModel = (sequelize, DataTypes) => {
-  return sequelize.define(
+  const Book = sequelize.define(
     "t_livre",
     {
       livre_id: {
@@ -16,7 +18,6 @@ const BookModel = (sequelize, DataTypes) => {
         },
         validate: {
           is: {
-            //args: /^[A-Za-z\s&]*$/,
             msg: "Seules les lettres et les espaces sont autorisées.",
           },
           notEmpty: {
@@ -85,5 +86,14 @@ const BookModel = (sequelize, DataTypes) => {
       freezeTableName: true,
     }
   );
+
+  // Définir l'association avec CategoryModel
+  Book.belongsTo(CategoryModel, {
+    foreignKey: "categorie_id", // clé étrangère dans le modèle Book
+    as: "categorie_id", // Alias pour l'association
+  });
+
+  return Book;
 };
-export { BookModel };
+
+export { BookModel, Book };

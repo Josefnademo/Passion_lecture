@@ -10,7 +10,7 @@ bookRouter.post(
     Book.create(req.body)
       .then((createdBook) => {
         // Définir un message pour le consommateur de l'API REST
-        const message = `Le produit ${createdBook.titre} a bien été créé !`;
+        const message = `Le livre ${createdBook.titre} a bien été créé !`;
         // Retourner la réponse HTTP en json avec le msg et le produit créé
         res.json(success(message, createdBook));
       })
@@ -19,7 +19,7 @@ bookRouter.post(
           return res.status(400).json({ message: error.message, data: error });
         }*/
         const message =
-          "Le produit n'a pas pu être ajouté. Merci de réessayer dans quelques instants.";
+          "Le livre n'a pas pu être ajouté. Merci de réessayer dans quelques instants.";
         res.status(500).json({ message, data: error });
       });
   }
@@ -80,6 +80,39 @@ bookRouter.get(
       });
   }
 );
+bookRouter.put("/:id", async (req, res) => {
+  try {
+    const { titre, author_id, category_id } = req.body;
+    const [updated] = await sequelize.query(
+      "UPDATE books SET titre=?, author_id=?, category_id=? WHERE id=?",
+      {
+        replacements: [titre, author_id, category_id, req.params.id],
+        type: sequelize.QueryTypes.UPDATE,
+      }
+    );
+
+    if (!updated) return res.status(404).json({ message: "Book not found" });
+
+    res.json({ message: "Book updated successfully" });
+  } catch (error) {
+    res.status(500).json({ message: "Database error" });
+  }
+});
+
+bookRouter.delete("/:id", async (req, res) => {
+  try {
+    const deleted = await sequelize.query("DELETE FROM books WHERE id=?", {
+      replacements: [req.params.id],
+      type: sequelize.QueryTypes.DELETE,
+    });
+
+    if (!deleted) return res.status(404).json({ message: "Book not found" });
+
+    res.json({ message: "Book deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ message: "Database error" });
+  }
+});
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*router.get("/", async (req, res) => {
