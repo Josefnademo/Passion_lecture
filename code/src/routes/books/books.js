@@ -1,6 +1,6 @@
 import express from "express";
 import { sequelize, Book } from "../../db/sequelize.js";
-import { auth } from "../../auth/auth.js";
+import { auth } from "../../controller/auth/auth.js";
 import { success } from "../helper.js";
 const bookRouter = express();
 
