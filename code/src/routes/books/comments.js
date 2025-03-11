@@ -1,22 +1,12 @@
 import express from "express";
-import { sequelize } from "../../db/sequelize.js";
+import {
+  getComments,
+  addComment,
+} from "../../controllers/commentsController.js";
 
 const router = express.Router({ mergeParams: true });
 
-router.get("/", async (req, res) => {
-  try {
-    const comments = await sequelize.query(
-      "SELECT * FROM comments WHERE book_id = ?",
-      {
-        replacements: [req.params.id],
-        type: sequelize.QueryTypes.SELECT,
-      }
-    );
-
-    res.json(comments);
-  } catch (error) {
-    res.status(500).json({ message: "Database error" });
-  }
-});
+router.get("/", getComments);
+router.post("/", addComment);
 
 export default router;

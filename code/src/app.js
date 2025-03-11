@@ -1,5 +1,4 @@
 import express from "express";
-
 import { sequelize, initDb, Book } from "./db/sequelize.js";
 import bookRouter from "./routes/books/books.js";
 import commentRouter from "./routes/books/comments.js";
