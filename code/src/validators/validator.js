@@ -1,0 +1,50 @@
+/*import { body, param } from "express-validator";
+
+// Validate user comments
+export const validateComment = [
+  param("id").isInt().withMessage("User ID must be an integer"),
+  body("content")
+    .trim()
+    .notEmpty()
+    .withMessage("Content is required")
+    .isLength({ min: 3 })
+    .withMessage("Content must be at least 3 characters long"),
+];
+
+// Validate book notes
+export const validateNote = [
+  param("id").isInt().withMessage("Book ID must be an integer"),
+  body("content")
+    .trim()
+    .notEmpty()
+    .withMessage("Content is required")
+    .isLength({ min: 3 })
+    .withMessage("Content must be at least 3 characters long"),
+];
+
+// Validate user login
+export const validateLogin = [
+  body("username").trim().notEmpty().withMessage("Username is required"),
+  body("password").trim().notEmpty().withMessage("Password is required"),
+];
+
+// Validate user registration
+export const validateRegistration = [
+  body("username")
+    .trim()
+    .notEmpty()
+    .withMessage("Username is required")
+    .isLength({ min: 4 })
+    .withMessage("Username must be at least 4 characters long"),
+  body("password")
+    .trim()
+    .notEmpty()
+    .withMessage("Password is required")
+    .isLength({ min: 6 })
+    .withMessage("Password must be at least 6 characters long"),
+  body("isAdmin")
+    .optional()
+    .isBoolean()
+    .withMessage("isAdmin must be a boolean"),
+];
+*/

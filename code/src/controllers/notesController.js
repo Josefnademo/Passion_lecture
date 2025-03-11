@@ -1,4 +1,4 @@
-import { sequelize } from "../../db/sequelize.js";
+import { sequelize } from "../db/sequelize.js";
 
 export const addNote = async (req, res) => {
   try {

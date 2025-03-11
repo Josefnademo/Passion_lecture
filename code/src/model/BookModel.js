@@ -1,7 +1,6 @@
-import { CategoryModel } from "./CategoryModel";
+import { DataTypes } from "sequelize";
 
-// https://sequelize.org/docs/v7/models/data-types/
-const BookModel = (sequelize, DataTypes) => {
+const BookModel = (sequelize) => {
   const Book = sequelize.define(
     "t_livre",
     {
@@ -17,33 +16,24 @@ const BookModel = (sequelize, DataTypes) => {
           msg: "Ce titre est déjà pris.",
         },
         validate: {
-          is: {
-            msg: "Seules les lettres et les espaces sont autorisées.",
-          },
           notEmpty: {
             msg: "Le titre ne peut pas être vide.",
           },
           notNull: {
-            msg: "Le nom est une propriété obligatoire.",
+            msg: "Le titre est une propriété obligatoire.",
           },
         },
       },
       annee_edition: {
-        type: DataTypes.FLOAT,
+        type: DataTypes.INTEGER,
         allowNull: false,
         validate: {
-          isFloat: {
-            msg: "Utilisez uniquement des nombres pour la date.",
-          },
-          notEmpty: {
-            msg: "Le prix ne peut pas être vide.",
-          },
-          notNull: {
-            msg: "Le prix est une propriété obligatoire.",
+          isInt: {
+            msg: "L'année d'édition doit être un nombre entier.",
           },
           max: {
-            args: [2025.0],
-            msg: "L'année doit être antérieure à 2025",
+            args: [2025],
+            msg: "L'année doit être inférieure ou égale à 2025.",
           },
         },
       },
@@ -56,7 +46,7 @@ const BookModel = (sequelize, DataTypes) => {
         allowNull: true,
       },
       resume: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: true,
       },
       editeur: {
@@ -68,13 +58,11 @@ const BookModel = (sequelize, DataTypes) => {
         allowNull: false,
         validate: {
           isInt: {
-            msg: "utilisez uniquement des chiffres pour le nombre de pages.",
+            msg: "Le nombre de pages doit être un entier.",
           },
-          notEmpty: {
-            msg: "un livre doit avoir un nombre de pages.",
-          },
-          notNull: {
-            msg: "Le nombre de pages est une propriété obligatoire.",
+          min: {
+            args: [1],
+            msg: "Un livre doit avoir au moins une page.",
           },
         },
       },
@@ -82,18 +70,12 @@ const BookModel = (sequelize, DataTypes) => {
     {
       timestamps: true,
       createdAt: "created",
-      updatedAt: true,
+      updatedAt: "updated",
       freezeTableName: true,
     }
   );
 
-  // Définir l'association avec CategoryModel
-  Book.belongsTo(CategoryModel, {
-    foreignKey: "categorie_id", // clé étrangère dans le modèle Book
-    as: "categorie_id", // Alias pour l'association
-  });
-
   return Book;
 };
 
-export { BookModel, Book };
+export { BookModel };
