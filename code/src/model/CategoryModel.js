@@ -1,5 +1,5 @@
 const CategoryModel = (sequelize, DataTypes) => {
-  return sequelize.define(
+  const Category = sequelize.define(
     "t_category",
     {
       categorie_id: {
@@ -15,7 +15,22 @@ const CategoryModel = (sequelize, DataTypes) => {
         },
       },
     },
-    { freezeTableName: true }
+    {
+      timestamps: true,
+      createdAt: "created",
+      updatedAt: "updated",
+      freezeTableName: true,
+    }
   );
+
+  Category.associate = (models) => {
+    Category.hasMany(models.t_livre, {
+      foreignKey: "category_id",
+      as: "books",
+    });
+  };
+
+  return Category;
 };
+
 export { CategoryModel };

@@ -1,5 +1,5 @@
 const UserModel = (sequelize, DataTypes) => {
-  return sequelize.define(
+  const User = sequelize.define(
     "t_user",
     {
       utilisateur_id: {
@@ -31,5 +31,15 @@ const UserModel = (sequelize, DataTypes) => {
       freezeTableName: true,
     }
   );
+
+  User.associate = (models) => {
+    User.hasMany(models.t_evaluer, {
+      foreignKey: "user_id",
+      as: "evaluations",
+    });
+  };
+
+  return User;
 };
+
 export { UserModel };

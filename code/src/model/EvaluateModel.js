@@ -18,6 +18,22 @@ const EvaluateModel = (sequelize, DataTypes) => {
           msg: "la note ne peux pas dépasser 5",
         },
       },
+      user_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+          model: "t_user",
+          key: "utilisateur_id",
+        },
+      },
+      book_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+          model: "t_livre",
+          key: "livre_id",
+        },
+      },
     },
     { freezeTableName: true }
   );
