@@ -1,0 +1,16 @@
+/api/books ;   
+get /api/books/:id ;  
+post /api/books/ {json} ;   
+put /api/books/:id {json} ; 
+delete /api/books/:id  ; 
+ get /api/categories/ ;
+ get /api/categories/:id ; 
+post /api/login/ {josn};
+ --- route imbriquee:--- 
+ get /api/books/:id/comments ;
+ get /api/books/:id/notes ; 
+get /api/categories/:id/books ; 
+get /api/authors/:id/books ;
+ post /api/users/:id/comments {json} ; 
+ post /api/books/:id/notes {json}
+http://localhost:9999
