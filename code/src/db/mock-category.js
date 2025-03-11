@@ -1,18 +1,23 @@
 let categories = [
   {
+    categorie_id: 1,
     nom: "Policier",
   },
   {
+    categorie_id: 2,
     nom: "Fantasy",
   },
   {
+    categorie_id: 3,
     nom: "Romance",
   },
   {
-    nom: "scolaire",
+    categorie_id: 4,
+    nom: "Scolaire",
   },
   {
-    nom: "documentaire",
+    categorie_id: 5,
+    nom: "Documentaire",
   },
 ];
 

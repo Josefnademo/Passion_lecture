@@ -1,5 +1,7 @@
-const EvaluateModel = (sequelize, DataTypes) => {
-  return sequelize.define(
+import { Sequelize, DataTypes } from "sequelize";
+
+const EvaluateModel = (sequelize) => {
+  const Evaluate = sequelize.define(
     "t_evaluer",
     {
       commentaire: {
@@ -9,17 +11,38 @@ const EvaluateModel = (sequelize, DataTypes) => {
       note: {
         type: DataTypes.INTEGER,
         allowNull: true,
-        min: {
-          args: [1.0],
-          msg: "la note doit être au moins de 1",
+        validate: {
+          min: {
+            args: [1],
+            msg: "La note doit être au moins de 1.",
+          },
+          max: {
+            args: [5],
+            msg: "La note ne peut pas dépasser 5.",
+          },
         },
-        max: {
-          args: [5.0],
-          msg: "la note ne peux pas dépasser 5",
+      },
+      livre_fk: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+          model: "t_livre",
+          key: "livre_id",
+        },
+      },
+      utilisateur_fk: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+          model: "t_utilisateur",
+          key: "utilisateur_id",
         },
       },
     },
     { freezeTableName: true }
   );
+
+  return Evaluate;
 };
+
 export { EvaluateModel };

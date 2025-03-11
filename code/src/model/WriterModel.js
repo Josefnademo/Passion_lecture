@@ -1,6 +1,6 @@
 const WriterModel = (sequelize, DataTypes) => {
-  return sequelize.define(
-    "t_ecrivain",
+  const Writer = sequelize.define(
+    "t_ecrivain", // Model name
     {
       ecrivain_id: {
         type: DataTypes.INTEGER,
@@ -18,5 +18,13 @@ const WriterModel = (sequelize, DataTypes) => {
     },
     { freezeTableName: true }
   );
+
+  Writer.belongsToMany(sequelize.models.t_livre, {
+    through: "WriterBooks",
+    foreignKey: "ecrivain_id",
+  });
+
+  return Writer;
 };
+
 export { WriterModel };

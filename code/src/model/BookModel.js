@@ -1,8 +1,9 @@
 import { DataTypes } from "sequelize";
+import { EvaluateModel } from "../model/EvaluateModel.js";
 
 const BookModel = (sequelize) => {
   const Book = sequelize.define(
-    "t_livre",
+    "t_livre", // Model name
     {
       livre_id: {
         type: DataTypes.INTEGER,
@@ -26,7 +27,7 @@ const BookModel = (sequelize) => {
       },
       annee_edition: {
         type: DataTypes.INTEGER,
-        allowNull: false,
+        allowNull: true,
         validate: {
           isInt: {
             msg: "L'année d'édition doit être un nombre entier.",
@@ -66,6 +67,30 @@ const BookModel = (sequelize) => {
           },
         },
       },
+      utilisateur_fk: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+          model: "t_utilisateur",
+          key: "utilisateur_id",
+        },
+      },
+      ecrivain_fk: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+          model: "t_ecrivain",
+          key: "ecrivain_id",
+        },
+      },
+      categorie_fk: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+          model: "t_categorie",
+          key: "categorie_id",
+        },
+      },
     },
     {
       timestamps: true,
@@ -74,6 +99,9 @@ const BookModel = (sequelize) => {
       freezeTableName: true,
     }
   );
+
+  const Evaluate = EvaluateModel(sequelize); // Get the Evaluate model
+  Book.hasMany(Evaluate, { foreignKey: "livre_fk" });
 
   return Book;
 };

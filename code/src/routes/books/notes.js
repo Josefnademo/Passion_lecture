@@ -1,5 +1,5 @@
 import express from "express";
-import { addNote } from "../../controllers/notesController.js";
+import NotesController from "../../controllers/notesController.js"; // Importation par défaut
 
 const router = express.Router({ mergeParams: true });
 
@@ -12,7 +12,7 @@ router.post(
     }
     next();
   },
-  addNote
+  NotesController.createEvaluation
 );
 
 export default router;

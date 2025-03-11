@@ -1,6 +1,6 @@
 const UserModel = (sequelize, DataTypes) => {
   return sequelize.define(
-    "t_user",
+    "t_utilisateur",
     {
       utilisateur_id: {
         type: DataTypes.INTEGER,
@@ -21,7 +21,7 @@ const UserModel = (sequelize, DataTypes) => {
       isAdmin: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
-        default: false,
+        defaultValue: false,
       },
     },
     {

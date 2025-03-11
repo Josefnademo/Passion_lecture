@@ -1,6 +1,6 @@
 const CategoryModel = (sequelize, DataTypes) => {
   return sequelize.define(
-    "t_category",
+    "t_categorie",
     {
       categorie_id: {
         type: DataTypes.INTEGER,
