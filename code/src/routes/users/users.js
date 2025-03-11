@@ -1,5 +1,5 @@
 import express from "express";
-import { sequelize, User, Comment } from "../../db/sequelize.js";
+import { sequelize, User, Evaluate } from "../../db/sequelize.js";
 import { success } from "../../helper.js";
 import bcrypt from "bcrypt";
 
@@ -24,18 +24,29 @@ userRouter.post("/", async (req, res) => {
   }
 });
 
+// Create a test user if it doesn't exist
+userRouter.post("/test", async (req, res) => {
+  try {
+    const testUser = await User.create({
+      username: "testuser",
+      hashed_password: await bcrypt.hash("password123", 10),
+      isAdmin: false,
+    });
+    res.status(201).json(success("Test user created successfully", testUser));
+  } catch (error) {
+    res.status(500).json({ message: "Error creating test user", data: error });
+  }
+});
+
 //Obtenir une liste de tous les utilisateurs
 userRouter.get("/", async (req, res) => {
   try {
-    let users;
-    users = await User.findAll({
-      order: [["utilisateur_id"]],
+    const users = await User.findAll({
+      attributes: ["utilisateur_id", "username", "isAdmin"], // Don't send password
     });
-    res.json(success("Liste des user récupérée avec succès.", users));
+    res.json(success("Users retrieved successfully", users));
   } catch (error) {
-    res
-      .status(500)
-      .json({ message: "Impossible de récupérer les users.", data: error });
+    res.status(500).json({ message: "Error retrieving users", data: error });
   }
 });
 userRouter.delete("/:id", async (req, res) => {
@@ -67,7 +78,7 @@ userRouter.post("/:id/comments", async (req, res) => {
       }
     );
 
-    const newComment = await Comment.create({
+    const newComment = await Evaluate.create({
       user_id: req.params.id, // Get the user_id from the URL parameter
       book_id: req.body.book_id, // Get the book_id from the request body
       content: req.body.content, // Get the content from the request body

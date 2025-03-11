@@ -7,6 +7,8 @@ let books = [
     resume: "Petit résumé du livre",
     editeur: "Rebecca Yarros",
     nombre_de_page: 528,
+    category_id: 1,
+    writer_id: 1,
   },
   {
     titre: "Second Wing",
@@ -16,6 +18,8 @@ let books = [
     resume: "Petit résumé du livre",
     editeur: "Rebecca Yarros",
     nombre_de_page: 600,
+    category_id: 1,
+    writer_id: 1,
   },
   {
     titre: "Third Wing",
@@ -25,6 +29,8 @@ let books = [
     resume: "Petit résumé du livre",
     editeur: "Rebecca Yarros",
     nombre_de_page: 455,
+    category_id: 1,
+    writer_id: 1,
   },
   {
     titre: "Fourth Wing",
@@ -34,6 +40,8 @@ let books = [
     resume: "Petit résumé du livre",
     editeur: "Rebecca Yarros",
     nombre_de_page: 789,
+    category_id: 1,
+    writer_id: 1,
   },
   {
     titre: "Fifth Wing",
@@ -43,6 +51,8 @@ let books = [
     resume: "Petit résumé du livre",
     editeur: "Rebecca Yarros",
     nombre_de_page: 512,
+    category_id: 1,
+    writer_id: 1,
   },
 ];
 

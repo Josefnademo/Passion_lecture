@@ -1,18 +1,12 @@
 import express from "express";
-import { addNote } from "../../controllers/notesController.js";
+import { getNotes, addNote } from "../../controllers/notesController.js";
 
 const router = express.Router({ mergeParams: true });
 
-router.post(
-  "/",
-  (req, res, next) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
-    }
-    next();
-  },
-  addNote
-);
+// Get all notes for a specific book
+router.get("/:id/notes", getNotes);
+
+// Add a note to a specific book
+router.post("/:id/notes", addNote);
 
 export default router;

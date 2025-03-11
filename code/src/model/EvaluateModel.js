@@ -1,5 +1,5 @@
 const EvaluateModel = (sequelize, DataTypes) => {
-  return sequelize.define(
+  const Evaluate = sequelize.define(
     "t_evaluer",
     {
       commentaire: {
@@ -9,13 +9,15 @@ const EvaluateModel = (sequelize, DataTypes) => {
       note: {
         type: DataTypes.INTEGER,
         allowNull: true,
-        min: {
-          args: [1.0],
-          msg: "la note doit être au moins de 1",
-        },
-        max: {
-          args: [5.0],
-          msg: "la note ne peux pas dépasser 5",
+        validate: {
+          min: {
+            args: [1],
+            msg: "la note doit être au moins de 1",
+          },
+          max: {
+            args: [10],
+            msg: "la note ne peux pas dépasser 5",
+          },
         },
       },
       user_id: {
@@ -35,7 +37,26 @@ const EvaluateModel = (sequelize, DataTypes) => {
         },
       },
     },
-    { freezeTableName: true }
+    {
+      timestamps: true,
+      createdAt: "created",
+      updatedAt: "updated",
+      freezeTableName: true,
+    }
   );
+
+  Evaluate.associate = (models) => {
+    Evaluate.belongsTo(models.t_user, {
+      foreignKey: "user_id",
+      as: "user",
+    });
+    Evaluate.belongsTo(models.t_livre, {
+      foreignKey: "book_id",
+      as: "book",
+    });
+  };
+
+  return Evaluate;
 };
+
 export { EvaluateModel };

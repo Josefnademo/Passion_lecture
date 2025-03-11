@@ -3,21 +3,36 @@ import { sequelize, initDb, Book } from "./db/sequelize.js";
 import bookRouter from "./routes/books/books.js";
 import commentRouter from "./routes/books/comments.js";
 import noteRouter from "./routes/books/notes.js";
+import evaluationRouter from "./routes/books/evaluations.js";
 import categoryRouter from "./routes/categories/categories.js";
-//import authorRouter from "./routes/authors/authors.js";
+import categoryBooksRouter from "./routes/categories/books.js";
+import authorRouter from "./routes/authors/books.js";
 import userRouter from "./routes/users/users.js";
+import userCommentsRouter from "./routes/users/comments.js";
 import loginRouter from "./routes/auth/login.js";
-const app = express();
 
+const app = express();
 app.use(express.json());
 const port = 9999;
 
+// Book routes
 app.use("/api/books", bookRouter);
-app.use("/api/books/:id/comments", commentRouter);
-app.use("/api/books/:id/notes", noteRouter);
+app.use("/api/books/:bookId/evaluations", evaluationRouter);
+app.use("/api/books/:bookId/comments", commentRouter);
+app.use("/api/books/:bookId/notes", noteRouter);
+
+// Category routes
 app.use("/api/categories", categoryRouter);
-//app.use("/api/authors", authorRouter);
+app.use("/api/categories/:id/books", categoryBooksRouter);
+
+// Author routes
+app.use("/api/authors/:id/books", authorRouter);
+
+// User routes
 app.use("/api/users", userRouter);
+app.use("/api/users/:id/comments", userCommentsRouter);
+
+// Auth routes
 app.use("/api/auth/login", loginRouter);
 
 sequelize

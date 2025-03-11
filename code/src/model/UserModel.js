@@ -32,13 +32,6 @@ const UserModel = (sequelize, DataTypes) => {
     }
   );
 
-  User.associate = (models) => {
-    User.hasMany(models.t_evaluer, {
-      foreignKey: "user_id",
-      as: "evaluations",
-    });
-  };
-
   return User;
 };
 

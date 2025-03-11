@@ -37,12 +37,12 @@ const Evaluate = EvaluateModel(sequelize, DataTypes);
 let initDb = () => {
   return sequelize
     .sync({ force: true }) // Force la synchro => donc supprime les données également
-    .then((_) => {
-      importBooks();
-      importUsers();
-      importCategory();
-      importWriter();
-      importEval();
+    .then(async (_) => {
+      await importBooks();
+      await importUsers();
+      await importCategory();
+      await importWriter();
+      await importEval();
       console.log("La base de données db_books a bien été synchronisée");
     });
 };
@@ -54,6 +54,8 @@ const importBooks = () => {
       titre: book.titre,
       annee_edition: book.annee_edition,
       nombre_de_page: book.nombre_de_page,
+      category_id: book.category_id,
+      writer_id: book.writer_id,
     }).then((book) => console.log(book.toJSON()));
   });
 };
@@ -93,6 +95,8 @@ const importEval = () => {
     Evaluate.create({
       commentaire: evaluation.commentaire,
       note: evaluation.note,
+      book_id: evaluation.book_id,
+      user_id: evaluation.user_id,
     });
   });
 };

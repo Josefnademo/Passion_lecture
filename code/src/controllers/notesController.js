@@ -1,23 +1,25 @@
 import { sequelize } from "../db/sequelize.js";
+import { success } from "../helper.js";
+
+export const getNotes = async (req, res) => {
+  try {
+    const notes = await sequelize.models.t_note.findAll({
+      where: { book_id: req.params.id },
+    });
+    res.json(success("Notes retrieved successfully", notes));
+  } catch (error) {
+    res.status(500).json({ message: "Error retrieving notes", data: error });
+  }
+};
 
 export const addNote = async (req, res) => {
   try {
-    const { content } = req.body;
-
-    if (!content) {
-      return res.status(400).json({ message: "Content is required" });
-    }
-
-    await sequelize.query(
-      "INSERT INTO notes (book_id, content) VALUES (?, ?)",
-      {
-        replacements: [req.params.id, content],
-        type: sequelize.QueryTypes.INSERT,
-      }
-    );
-
-    res.status(201).json({ message: "Note added" });
+    const note = await sequelize.models.t_note.create({
+      value: req.body.value,
+      book_id: req.params.id,
+    });
+    res.status(201).json(success("Note added successfully", note));
   } catch (error) {
-    res.status(500).json({ message: "Database error" });
+    res.status(500).json({ message: "Error adding note", data: error });
   }
 };
