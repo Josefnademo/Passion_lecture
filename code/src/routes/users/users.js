@@ -1,56 +1,46 @@
 import express from "express";
-import { sequelize } from "../../db/sequelize.js";
+import { sequelize, User } from "../../db/sequelize.js";
+import { success } from "../../helper.js";
 import bcrypt from "bcrypt";
 
-const router = express.Router();
+const userRouter = express.Router();
 
 //Enregistrement d'un nouvel utilisateur
-router.post("/register", async (req, res) => {
+userRouter.post("/", async (req, res) => {
   try {
     const { username, password } = req.body;
-
     //Hachage du mot de passe
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    //Ajout d'un utilisateur à la base de données
-    await sequelize.query(
-      "INSERT INTO users (username, password) VALUES (?, ?)",
-      {
-        replacements: [username, hashedPassword],
-        type: sequelize.QueryTypes.INSERT,
-      }
-    );
-    /*    const newUser = await User.create({                                                  //versino sequelize
-       username: req.body.username,  // Get the username from the request body
-       password: hashedPassword,     // You should hash the password before storing it
-});
-
-console.log("-- New User --");
-console.log(newUser.toJSON());  // Output the newly created user
- */
-
-    res.status(201).json({ message: "User registered successfully" });
+    const hashed_password = await bcrypt.hash(password, 10);
+    const isAdmin = false;
+    const userData = { hashed_password, username, isAdmin };
+    const user = await User.create(userData);
+    res
+      .status(201)
+      .json(success(`Le livre ${user.username} a bien été créé !`, user));
   } catch (error) {
-    res.status(500).json({ message: "Database error" });
+    res
+      .status(500)
+      .json({ message: "Erreur lors de la création du user.", data: error });
   }
 });
 
 //Obtenir une liste de tous les utilisateurs
-router.get("/", async (req, res) => {
-  /* const users = await User.findAll({attributes:['id','username'],});  //versino sequelize*/
+userRouter.get("/", async (req, res) => {
   try {
-    const users = await sequelize.query("SELECT id, username FROM users", {
-      type: sequelize.QueryTypes.SELECT,
+    let users;
+    users = await User.findAll({
+      order: [["utilisateur_id"]],
     });
-
-    res.json(users);
+    res.json(success("Liste des user récupérée avec succès.", users));
   } catch (error) {
-    res.status(500).json({ message: "Database error" });
+    res
+      .status(500)
+      .json({ message: "Impossible de récupérer les users.", data: error });
   }
 });
 
 //Ajout d'un commentaire par utilisateur
-router.post("/:id/comments", async (req, res) => {
+userRouter.post("/:id/comments", async (req, res) => {
   try {
     const { book_id, content } = req.body;
 
@@ -74,4 +64,4 @@ router.post("/:id/comments", async (req, res) => {
   }
 });
 
-export default router;
+export default userRouter;

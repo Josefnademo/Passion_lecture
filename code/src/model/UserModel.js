@@ -21,6 +21,7 @@ const UserModel = (sequelize, DataTypes) => {
       isAdmin: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
+        default: false,
       },
     },
     {
