@@ -96,4 +96,13 @@ const importEval = () => {
     });
   });
 };
-export { sequelize, initDb, Book, importUsers, User };
+export {
+  sequelize,
+  initDb,
+  Book,
+  importUsers,
+  User,
+  Category,
+  Writer,
+  Evaluate,
+};
