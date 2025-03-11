@@ -1,5 +1,5 @@
 import express from "express";
-import { sequelize, User } from "../../db/sequelize.js";
+import { sequelize, User, Comment } from "../../db/sequelize.js";
 import { success } from "../../helper.js";
 import bcrypt from "bcrypt";
 
@@ -38,6 +38,21 @@ userRouter.get("/", async (req, res) => {
       .json({ message: "Impossible de récupérer les users.", data: error });
   }
 });
+userRouter.delete("/:id", async (req, res) => {
+  try {
+    const user = await User.findByPk(req.params.id);
+    if (!user) {
+      return res.status(404).json({ message: "User introuvable." });
+    }
+
+    await user.destroy();
+    res.json(success("User supprimé avec succès."));
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Erreur lors de la suppression.", data: error });
+  }
+});
 
 //Ajout d'un commentaire par utilisateur
 userRouter.post("/:id/comments", async (req, res) => {
@@ -52,11 +67,11 @@ userRouter.post("/:id/comments", async (req, res) => {
       }
     );
 
-    /*const newComment = await Comment.create({
-  user_id: req.params.id,     // Get the user_id from the URL parameter
-  book_id: req.body.book_id,  // Get the book_id from the request body
-  content: req.body.content,  // Get the content from the request body
-});  //versino sequelize*/
+    const newComment = await Comment.create({
+      user_id: req.params.id, // Get the user_id from the URL parameter
+      book_id: req.body.book_id, // Get the book_id from the request body
+      content: req.body.content, // Get the content from the request body
+    }); //versino sequelize
 
     res.status(201).json({ message: "Comment added successfully" });
   } catch (error) {
