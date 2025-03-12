@@ -24,7 +24,7 @@ const EvaluateModel = (sequelize) => {
       },
       livre_fk: {
         type: DataTypes.INTEGER,
-        allowNull: false,
+        allowNull: true,
         references: {
           model: "t_livre",
           key: "livre_id",
@@ -32,7 +32,7 @@ const EvaluateModel = (sequelize) => {
       },
       utilisateur_fk: {
         type: DataTypes.INTEGER,
-        allowNull: false,
+        allowNull: true,
         references: {
           model: "t_utilisateur",
           key: "utilisateur_id",

@@ -9,6 +9,7 @@ const BookModel = (sequelize) => {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
+        allowNull: false,
       },
       titre: {
         type: DataTypes.STRING,
@@ -69,7 +70,7 @@ const BookModel = (sequelize) => {
       },
       utilisateur_fk: {
         type: DataTypes.INTEGER,
-        allowNull: false,
+        allowNull: true,
         references: {
           model: "t_utilisateur",
           key: "utilisateur_id",
@@ -77,7 +78,7 @@ const BookModel = (sequelize) => {
       },
       ecrivain_fk: {
         type: DataTypes.INTEGER,
-        allowNull: false,
+        allowNull: true,
         references: {
           model: "t_ecrivain",
           key: "ecrivain_id",
@@ -85,7 +86,7 @@ const BookModel = (sequelize) => {
       },
       categorie_fk: {
         type: DataTypes.INTEGER,
-        allowNull: false,
+        allowNull: true,
         references: {
           model: "t_categorie",
           key: "categorie_id",
