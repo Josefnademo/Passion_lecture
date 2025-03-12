@@ -24,13 +24,6 @@ const WriterModel = (sequelize, DataTypes) => {
     }
   );
 
-  Writer.associate = (models) => {
-    Writer.hasMany(models.t_livre, {
-      foreignKey: "writer_id",
-      as: "books",
-    });
-  };
-
   return Writer;
 };
 

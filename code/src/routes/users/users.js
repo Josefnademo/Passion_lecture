@@ -9,46 +9,102 @@ const userRouter = express.Router();
 userRouter.post("/", async (req, res) => {
   try {
     const { username, password } = req.body;
+
+    // Check if user already exists
+    const existingUser = await User.findOne({ where: { username } });
+    if (existingUser) {
+      return res.status(400).json({ message: "Username already exists" });
+    }
+
     //Hachage du mot de passe
     const hashed_password = await bcrypt.hash(password, 10);
     const isAdmin = false;
     const userData = { hashed_password, username, isAdmin };
+
     const user = await User.create(userData);
-    res
-      .status(201)
-      .json(success(`Le livre ${user.username} a bien été créé !`, user));
+    console.log("Created new user:", {
+      id: user.utilisateur_id,
+      username: user.username,
+    });
+
+    res.status(201).json(
+      success("User created successfully", {
+        utilisateur_id: user.utilisateur_id,
+        username: user.username,
+        isAdmin: user.isAdmin,
+      })
+    );
   } catch (error) {
-    res
-      .status(500)
-      .json({ message: "Erreur lors de la création du user.", data: error });
+    console.error("Error creating user:", error);
+    res.status(500).json({
+      message: "Error creating user",
+      error: error.message,
+    });
   }
 });
 
 // Create a test user if it doesn't exist
 userRouter.post("/test", async (req, res) => {
   try {
+    // Check if test user already exists
+    const existingUser = await User.findOne({
+      where: { username: "testuser" },
+    });
+
+    if (existingUser) {
+      return res.json(
+        success("Test user already exists", {
+          utilisateur_id: existingUser.utilisateur_id,
+          username: existingUser.username,
+          isAdmin: existingUser.isAdmin,
+        })
+      );
+    }
+
     const testUser = await User.create({
       username: "testuser",
       hashed_password: await bcrypt.hash("password123", 10),
       isAdmin: false,
     });
-    res.status(201).json(success("Test user created successfully", testUser));
+
+    console.log("Created test user:", {
+      id: testUser.utilisateur_id,
+      username: testUser.username,
+    });
+
+    res.status(201).json(
+      success("Test user created successfully", {
+        utilisateur_id: testUser.utilisateur_id,
+        username: testUser.username,
+        isAdmin: testUser.isAdmin,
+      })
+    );
   } catch (error) {
-    res.status(500).json({ message: "Error creating test user", data: error });
+    console.error("Error creating test user:", error);
+    res.status(500).json({
+      message: "Error creating test user",
+      error: error.message,
+    });
   }
 });
 
-//Obtenir une liste de tous les utilisateurs
+// Get all users
 userRouter.get("/", async (req, res) => {
   try {
     const users = await User.findAll({
-      attributes: ["utilisateur_id", "username", "isAdmin"], // Don't send password
+      attributes: ["utilisateur_id", "username", "isAdmin"],
     });
+    console.log("Current users in database:", users);
     res.json(success("Users retrieved successfully", users));
   } catch (error) {
-    res.status(500).json({ message: "Error retrieving users", data: error });
+    console.error("Error getting users:", error);
+    res.status(500).json({
+      message: "Error retrieving users",
+      error: error.message,
+    });
   }
 });
+
 userRouter.delete("/:id", async (req, res) => {
   try {
     const user = await User.findByPk(req.params.id);
