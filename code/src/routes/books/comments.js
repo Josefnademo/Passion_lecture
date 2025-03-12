@@ -6,18 +6,10 @@ import {
 
 const router = express.Router({ mergeParams: true });
 
-router.get("/", getComments);
+// Get all comments for a specific book
+router.get("/:id/comments", getComments);
 
-router.post(
-  "/",
-  (req, res, next) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
-    }
-    next();
-  },
-  addComment
-);
+// Add a comment to a specific book
+router.post("/:id/comments", addComment);
 
 export default router;

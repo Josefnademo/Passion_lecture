@@ -1,5 +1,5 @@
 const WriterModel = (sequelize, DataTypes) => {
-  return sequelize.define(
+  const Writer = sequelize.define(
     "t_ecrivain",
     {
       ecrivain_id: {
@@ -16,7 +16,15 @@ const WriterModel = (sequelize, DataTypes) => {
         allowNull: true,
       },
     },
-    { freezeTableName: true }
+    {
+      timestamps: true,
+      createdAt: "created",
+      updatedAt: "updated",
+      freezeTableName: true,
+    }
   );
+
+  return Writer;
 };
+
 export { WriterModel };

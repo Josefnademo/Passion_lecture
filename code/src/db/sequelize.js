@@ -34,67 +34,124 @@ const Category = CategoryModel(sequelize, DataTypes);
 const Writer = WriterModel(sequelize, DataTypes);
 // Le modèle Evaluate
 const Evaluate = EvaluateModel(sequelize, DataTypes);
+
+// Initialize associations
+const models = {
+  t_livre: Book,
+  t_user: User,
+  t_category: Category,
+  t_ecrivain: Writer,
+  t_evaluer: Evaluate,
+};
+
+Object.values(models)
+  .filter((model) => typeof model.associate === "function")
+  .forEach((model) => model.associate(models));
+
 let initDb = () => {
   return sequelize
     .sync({ force: true }) // Force la synchro => donc supprime les données également
-    .then((_) => {
-      importBooks();
-      importUsers();
-      importCategory();
-      importWriter();
-      importEval();
+    .then(async (_) => {
+      await importUsers();
+      await importCategory();
+      await importWriter();
+      await importBooks();
+      await importEval();
+
       console.log("La base de données db_books a bien été synchronisée");
     });
 };
 const importBooks = () => {
-  // import tous les produits présents dans le fichier db/mock-product
-  books.map((book) => {
-    //equivalent insert into
-    Book.create({
-      titre: book.titre,
-      annee_edition: book.annee_edition,
-      nombre_de_page: book.nombre_de_page,
-    }).then((book) => console.log(book.toJSON()));
-  });
+  return Promise.all(
+    books.map(async (book) => {
+      try {
+        const createdBook = await Book.create({
+          titre: book.titre,
+          annee_edition: book.annee_edition,
+          nombre_de_page: book.nombre_de_page,
+          category_id: book.category_id,
+          writer_id: book.writer_id,
+        });
+        console.log("Created book:", createdBook.toJSON());
+        return createdBook;
+      } catch (error) {
+        console.error("Error creating book:", error);
+        throw error;
+      }
+    })
+  );
 };
 
 const importUsers = () => {
-  users.map((user) => {
-    bcrypt
-      .hash(user.username, 10) // temps pour hasher = du sel
-      .then((hash) =>
-        User.create({
+  return Promise.all(
+    users.map(async (user) => {
+      try {
+        const hash = await bcrypt.hash(user.password, 10);
+        const createdUser = await User.create({
           username: user.username,
           hashed_password: hash,
           isAdmin: user.isAdmin,
-        })
-      )
-      .then((user) => console.log(user.toJSON()));
-  });
+        });
+        console.log("Created user:", createdUser.toJSON());
+        return createdUser;
+      } catch (error) {
+        console.error("Error creating user:", error);
+        throw error;
+      }
+    })
+  );
 };
 const importCategory = () => {
-  //equivalent insert into
-  categories.map((category) => {
-    Category.create({
-      nom: category.nom,
-    });
-  });
+  return Promise.all(
+    categories.map(async (category) => {
+      try {
+        const createdCategory = await Category.create({
+          nom: category.nom,
+        });
+        console.log("Created category:", createdCategory.toJSON());
+        return createdCategory;
+      } catch (error) {
+        console.error("Error creating category:", error);
+        throw error;
+      }
+    })
+  );
 };
 const importWriter = () => {
-  writers.map((writer) => {
-    Writer.create({
-      prenom: writer.prenom,
-      nom_de_famille: writer.nom_de_famille,
-    });
-  });
+  return Promise.all(
+    writers.map(async (writer) => {
+      try {
+        const createdWriter = await Writer.create({
+          prenom: writer.prenom,
+          nom_de_famille: writer.nom_de_famille,
+        });
+        console.log("Created writer:", createdWriter.toJSON());
+        return createdWriter;
+      } catch (error) {
+        console.error("Error creating writer:", error);
+        throw error;
+      }
+    })
+  );
 };
 const importEval = () => {
-  evaluations.map((evaluation) => {
-    Evaluate.create({
-      commentaire: evaluation.commentaire,
-      note: evaluation.note,
-    });
-  });
+  return Promise.all(
+    evaluations.map(async (evaluation) => {
+      try {
+        const createdEval = await Evaluate.create({
+          commentaire: evaluation.commentaire,
+          note: evaluation.note,
+          book_id: evaluation.book_id,
+          user_id: evaluation.user_id,
+        });
+        console.log("Created evaluation:", createdEval.toJSON());
+        return createdEval;
+      } catch (error) {
+        console.error("Error creating evaluation:", error);
+        throw error;
+      }
+    })
+  );
 };
 export {
   sequelize,

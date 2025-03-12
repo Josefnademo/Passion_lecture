@@ -66,6 +66,22 @@ const BookModel = (sequelize) => {
           },
         },
       },
+      category_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+          model: "t_category",
+          key: "categorie_id",
+        },
+      },
+      writer_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+          model: "t_ecrivain",
+          key: "ecrivain_id",
+        },
+      },
     },
     {
       timestamps: true,
@@ -74,6 +90,19 @@ const BookModel = (sequelize) => {
       freezeTableName: true,
     }
   );
+
+  Book.associate = (models) => {
+    Book.belongsTo(models.t_category, {
+      foreignKey: "category_id",
+      targetKey: "categorie_id",
+      as: "category",
+    });
+    Book.belongsTo(models.t_ecrivain, {
+      foreignKey: "writer_id",
+      targetKey: "ecrivain_id",
+      as: "writer",
+    });
+  };
 
   return Book;
 };

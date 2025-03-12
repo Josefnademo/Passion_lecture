@@ -1,5 +1,5 @@
 const UserModel = (sequelize, DataTypes) => {
-  return sequelize.define(
+  const User = sequelize.define(
     "t_user",
     {
       utilisateur_id: {
@@ -31,5 +31,8 @@ const UserModel = (sequelize, DataTypes) => {
       freezeTableName: true,
     }
   );
+
+  return User;
 };
+
 export { UserModel };

@@ -1,5 +1,5 @@
 const CategoryModel = (sequelize, DataTypes) => {
-  return sequelize.define(
+  const Category = sequelize.define(
     "t_category",
     {
       categorie_id: {
@@ -15,7 +15,15 @@ const CategoryModel = (sequelize, DataTypes) => {
         },
       },
     },
-    { freezeTableName: true }
+    {
+      timestamps: true,
+      createdAt: "created",
+      updatedAt: "updated",
+      freezeTableName: true,
+    }
   );
+
+  return Category;
 };
+
 export { CategoryModel };
