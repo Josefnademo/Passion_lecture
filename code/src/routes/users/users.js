@@ -325,9 +325,7 @@ userRouter.put("/:id", async (req, res) => {
  *   delete:
  *     tags: [Users]
  *     summary: Delete a user
- *     description: Remove a user from the system
- *     security:
- *       - bearerAuth: []
+ *     description: Delete a user and all their associated evaluations
  *     parameters:
  *       - in: path
  *         name: id
@@ -338,23 +336,42 @@ userRouter.put("/:id", async (req, res) => {
  *     responses:
  *       200:
  *         description: User deleted successfully
- *       401:
- *         description: Unauthorized
  *       404:
  *         description: User not found
  *       500:
  *         description: Server error
  */
 userRouter.delete("/:id", async (req, res) => {
+  const t = await sequelize.transaction();
+
   try {
-    const user = await User.findByPk(req.params.id);
+    const userId = req.params.id;
+
+    // Check if user exists
+    const user = await User.findByPk(userId);
     if (!user) {
+      await t.rollback();
       return res.status(404).json({ message: "User not found" });
     }
 
-    await user.destroy();
-    res.json(success("User deleted successfully"));
+    // Delete all evaluations by this user
+    await Evaluate.destroy({
+      where: { user_id: userId },
+      transaction: t,
+    });
+
+    // Delete the user
+    await User.destroy({
+      where: { utilisateur_id: userId },
+      transaction: t,
+    });
+
+    await t.commit();
+    res.json({
+      message: "User and associated evaluations deleted successfully",
+    });
   } catch (error) {
+    await t.rollback();
     console.error("Error deleting user:", error);
     res.status(500).json({
       message: "Error deleting user",
