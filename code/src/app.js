@@ -23,7 +23,7 @@ app.use("/api/books/:bookId/notes", noteRouter);
 
 // Category routes
 app.use("/api/categories", categoryRouter);
-app.use("/api/categories/:id/books", categoryBooksRouter);
+app.use("/api/categories", categoryBooksRouter);
 
 // Author routes
 app.use("/api/authors/:id/books", authorRouter);

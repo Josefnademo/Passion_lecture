@@ -34,6 +34,20 @@ const Category = CategoryModel(sequelize, DataTypes);
 const Writer = WriterModel(sequelize, DataTypes);
 // Le modèle Evaluate
 const Evaluate = EvaluateModel(sequelize, DataTypes);
+
+// Initialize associations
+const models = {
+  t_livre: Book,
+  t_user: User,
+  t_category: Category,
+  t_ecrivain: Writer,
+  t_evaluer: Evaluate,
+};
+
+Object.values(models)
+  .filter((model) => typeof model.associate === "function")
+  .forEach((model) => model.associate(models));
+
 let initDb = () => {
   return sequelize
     .sync({ force: true }) // Force la synchro => donc supprime les données également

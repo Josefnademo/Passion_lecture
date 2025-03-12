@@ -93,11 +93,13 @@ const BookModel = (sequelize) => {
 
   Book.associate = (models) => {
     Book.belongsTo(models.t_category, {
-      foreignKey: "categorie_id",
+      foreignKey: "category_id",
+      targetKey: "categorie_id",
       as: "category",
     });
     Book.belongsTo(models.t_ecrivain, {
-      foreignKey: "ecrivain_id",
+      foreignKey: "writer_id",
+      targetKey: "ecrivain_id",
       as: "writer",
     });
   };
