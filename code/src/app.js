@@ -6,7 +6,7 @@ import noteRouter from "./routes/books/notes.js";
 import evaluationRouter from "./routes/books/evaluations.js";
 import categoryRouter from "./routes/categories/categories.js";
 import categoryBooksRouter from "./routes/categories/books.js";
-import authorRouter from "./routes/authors/books.js";
+import authorBooksRouter from "./routes/authors/books.js";
 import userRouter from "./routes/users/users.js";
 import userCommentsRouter from "./routes/users/comments.js";
 import loginRouter from "./routes/auth/login.js";
@@ -26,7 +26,7 @@ app.use("/api/categories", categoryRouter);
 app.use("/api/categories", categoryBooksRouter);
 
 // Author routes
-app.use("/api/authors/:id/books", authorRouter);
+app.use("/api/authors", authorBooksRouter);
 
 // User routes
 app.use("/api/users", userRouter);
