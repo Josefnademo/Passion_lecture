@@ -1,18 +1,18 @@
 import express from "express";
 import {
-  getComments,
-  addComment,
-} from "../../controllers/commentsController.js";
+  getEvaluations,
+  addEvaluation,
+} from "../../controllers/evaluationsController.js";
 
 const router = express.Router({ mergeParams: true });
 
 /**
  * @swagger
- * /api/books/{id}/comments:
+ * /api/books/{id}/evaluations:
  *   get:
- *     tags: [Comments]
- *     summary: Get all comments for a book
- *     description: Retrieve all comments associated with a specific book
+ *     tags: [Evaluations]
+ *     summary: Get all evaluations for a book
+ *     description: Retrieve all evaluations (ratings and comments) associated with a specific book
  *     parameters:
  *       - in: path
  *         name: id
@@ -22,7 +22,7 @@ const router = express.Router({ mergeParams: true });
  *         description: Book ID
  *     responses:
  *       200:
- *         description: List of comments retrieved successfully
+ *         description: List of evaluations retrieved successfully
  *         content:
  *           application/json:
  *             schema:
@@ -32,7 +32,11 @@ const router = express.Router({ mergeParams: true });
  *                 properties:
  *                   id:
  *                     type: integer
- *                   content:
+ *                   note:
+ *                     type: integer
+ *                     minimum: 0
+ *                     maximum: 10
+ *                   commentaire:
  *                     type: string
  *                   user_id:
  *                     type: integer
@@ -41,20 +45,23 @@ const router = express.Router({ mergeParams: true });
  *                   created:
  *                     type: string
  *                     format: date-time
+ *                   updated:
+ *                     type: string
+ *                     format: date-time
  *       404:
  *         description: Book not found
  *       500:
  *         description: Server error
  */
-router.get("/:id/comments", getComments);
+router.get("/:id/evaluations", getEvaluations);
 
 /**
  * @swagger
- * /api/books/{id}/comments:
+ * /api/books/{id}/evaluations:
  *   post:
- *     tags: [Comments]
- *     summary: Add a comment to a book
- *     description: Create a new comment for a specific book
+ *     tags: [Evaluations]
+ *     summary: Add an evaluation to a book
+ *     description: Create a new evaluation (rating and comment) for a specific book
  *     parameters:
  *       - in: path
  *         name: id
@@ -69,18 +76,24 @@ router.get("/:id/comments", getComments);
  *           schema:
  *             type: object
  *             required:
- *               - content
+ *               - note
+ *               - commentaire
  *               - user_id
  *             properties:
- *               content:
+ *               note:
+ *                 type: integer
+ *                 minimum: 0
+ *                 maximum: 10
+ *                 description: Rating from 0 to 10
+ *               commentaire:
  *                 type: string
- *                 description: The comment text
+ *                 description: Review comment
  *               user_id:
  *                 type: integer
- *                 description: ID of the user making the comment
+ *                 description: ID of the user making the evaluation
  *     responses:
  *       201:
- *         description: Comment created successfully
+ *         description: Evaluation created successfully
  *         content:
  *           application/json:
  *             schema:
@@ -93,19 +106,21 @@ router.get("/:id/comments", getComments);
  *                   properties:
  *                     id:
  *                       type: integer
- *                     content:
+ *                     note:
+ *                       type: integer
+ *                     commentaire:
  *                       type: string
  *                     user_id:
  *                       type: integer
  *                     book_id:
  *                       type: integer
  *       400:
- *         description: Invalid request body
+ *         description: Invalid request body or rating out of range
  *       404:
- *         description: Book not found
+ *         description: Book or user not found
  *       500:
  *         description: Server error
  */
-router.post("/:id/comments", addComment);
+router.post("/:id/evaluations", addEvaluation);
 
 export default router;
