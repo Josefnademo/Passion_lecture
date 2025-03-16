@@ -96,11 +96,13 @@ const BookModel = (sequelize) => {
       foreignKey: "category_id",
       targetKey: "categorie_id",
       as: "category",
+      onDelete: "CASCADE",
     });
     Book.belongsTo(models.t_ecrivain, {
       foreignKey: "writer_id",
       targetKey: "ecrivain_id",
       as: "writer",
+      onDelete: "CASCADE",
     });
   };
 

@@ -1,5 +1,6 @@
 import express from "express";
 import bookController from "../../controllers/booksController.js";
+import {sequelize, Book, Writer, Category} from "../../db/sequelize.js";
 
 const router = express.Router();
 
@@ -198,6 +199,45 @@ router.put("/:id", bookController.updateBook);
  *       500:
  *         description: Server error
  */
-router.delete("/:id", bookController.deleteBook);
-
+router.delete("/:id", async (req, res) => {
+    const t = await sequelize.transaction();
+  
+    try {
+      const bookId = req.params.id;
+  
+      // Check if user exists
+      const book = await Book.findByPk(bookId);
+      if (!book) {
+        await t.rollback();
+        return res.status(404).json({ message: "User not found" });
+      }
+  
+      // Delete all evaluations by this user
+      await Writer.destroy({
+        where: { livre_id: bookId },
+        transaction: t,
+      });
+      await Category.destroy({
+        where: { livre_id: bookId },
+        transaction: t,
+      });
+      // Delete the user
+      await Book.destroy({
+        where: { livre_id: bookId },
+        transaction: t,
+      });
+  
+      await t.commit();
+      res.json({
+        message: "Book and associated evaluations deleted successfully",
+      });
+    } catch (error) {
+      await t.rollback();
+      console.error("Error deleting book:", error);
+      res.status(500).json({
+        message: "Error deleting book",
+        error: error.message,
+      });
+    }
+  });
 export default router;

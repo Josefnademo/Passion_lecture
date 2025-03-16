@@ -53,7 +53,6 @@ const EvaluateModel = (sequelize, DataTypes) => {
     });
     Evaluate.belongsTo(models.t_livre, {
       foreignKey: "livre_id",
-      as: "book",
       onDelete: "CASCADE",
     });
   };
