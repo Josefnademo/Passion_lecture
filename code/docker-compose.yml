@@ -7,7 +7,7 @@ version: "3.3"
 services:
   db:
     image: mysql:8.0.30
-    container_name: db
+    container_name: dbP
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_USER: db_user
