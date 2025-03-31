@@ -20,7 +20,7 @@ services:
       - ./scripts:/scripts
   phpmyadmin:
     image: phpmyadmin:5.2.0
-    container_name: pma
+    container_name: pmaP
     links:
       - db
     environment:
