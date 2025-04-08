@@ -1,4 +1,7 @@
-/*import { body, param } from "express-validator";
+//Ce validateur n'est pas nécessaire à l'application mais nous le gardons en pensant que ce sera peut être utile dans la partie 2 du projet.
+
+
+import { body, param } from "express-validator";
 
 // Validate user comments
 export const validateComment = [
@@ -47,4 +50,4 @@ export const validateRegistration = [
     .isBoolean()
     .withMessage("isAdmin must be a boolean"),
 ];
-*/
+
