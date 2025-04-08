@@ -57,7 +57,7 @@ export class NotesController {
         include: [
           {
             model: Book,
-            as: "book",
+            as: "t_livre",
           },
         ],
       });
