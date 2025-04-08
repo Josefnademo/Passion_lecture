@@ -1,4 +1,4 @@
-import { Book } from "../db/sequelize.js";
+import {sequelize, Book, Evaluate} from "../db/sequelize.js";
 import { Op } from "sequelize";
 import { success } from "../helper.js";
 
@@ -81,20 +81,42 @@ const bookController = {
 
   // Delete a book
   async deleteBook(req, res) {
+    const t = await sequelize.transaction();
+  
     try {
-      const book = await Book.findByPk(req.params.id);
+      const bookId = req.params.id;
+  
+      // Check if user exists
+      const book = await Book.findByPk(bookId);
       if (!book) {
-        return res.status(404).json({ message: "Livre introuvable." });
+        await t.rollback();
+        return res.status(404).json({ message: "User not found" });
       }
-
-      await book.destroy();
-      res.json(success("Livre supprimé avec succès."));
+  
+      // Delete all evaluations by this user
+      await Evaluate.destroy({
+        where: { book_id: bookId },
+        transaction: t,
+      });
+      // Delete the user
+      await Book.destroy({
+        where: { livre_id: bookId },
+        transaction: t,
+      });
+  
+      await t.commit();
+      res.json({
+        message: "Book and associated evaluations deleted successfully",
+      });
     } catch (error) {
-      res
-        .status(500)
-        .json({ message: "Erreur lors de la suppression.", data: error });
+      await t.rollback();
+      console.error("Error deleting book:", error);
+      res.status(500).json({
+        message: "Error deleting book",
+        error: error.message,
+      });
     }
-  },
+  }
 };
 
 export default bookController;
