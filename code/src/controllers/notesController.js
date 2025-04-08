@@ -2,9 +2,9 @@ import { sequelize } from "../db/sequelize.js";
 import { Evaluate, Book, User } from "../db/sequelize.js";
 import { Op } from "sequelize";
 
-export class NotesController {
+const NotesController= {
   // Get evaluations (notes) for a specific book
-  static async getEvaluationsForBook(req, res) {
+   async getEvaluationsForBook(req, res) {
     try {
       const { book_id } = req.params; // Assuming you're getting it from the route params
 
@@ -22,10 +22,10 @@ export class NotesController {
       console.error(error);
       return res.status(500).json({ message: error.message });
     }
-  }
+  },
 
   // Create a new evaluation (note)
-  static async createEvaluation(req, res) {
+   async createEvaluation(req, res) {
     try {
       const { commentaire, note, user_id, book_id } = req.body;
 
@@ -45,10 +45,10 @@ export class NotesController {
     } catch (error) {
       return res.status(500).json({ message: error.message });
     }
-  }
+  },
 
   // Get an evaluation (note) by its ID
-  static async getEvaluationById(req, res) {
+   async getEvaluationById(req, res) {
     try {
       const { noteId } = req.params;
 
@@ -71,10 +71,10 @@ export class NotesController {
       console.error(error);
       return res.status(500).json({ message: "Server error." });
     }
-  }
+  },
 
   // Update an evaluation (note) by ID
-  static async updateEvaluation(req, res) {
+   async updateEvaluation(req, res) {
     try {
       const { noteId } = req.params;
       const { commentaire, note } = req.body;
@@ -98,10 +98,10 @@ export class NotesController {
         .status(500)
         .json({ message: "Server error while updating evaluation." });
     }
-  }
+  },
 
   // Delete an evaluation (note) by ID
-  static async deleteEvaluation(req, res) {
+   async deleteEvaluation(req, res) {
     try {
       const { noteId } = req.params;
 
@@ -124,5 +124,6 @@ export class NotesController {
         .status(500)
         .json({ message: "Server error while deleting evaluation." });
     }
-  }
+  },
 }
+export default NotesController;

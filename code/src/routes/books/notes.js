@@ -1,5 +1,5 @@
 import express from "express";
-import { NotesController } from "../../controllers/notesController.js"; // Importation par défaut
+import  NotesController  from "../../controllers/notesController.js"; // Importation par défaut
 
 const router = express.Router({ mergeParams: true });
 
