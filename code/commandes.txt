@@ -1,5 +1,0 @@
-npm start
-http://localhost:9999/api/books/  /*sert a voir les books depuis un navigateur*/
-
-insatller insomia, express et nodemon
-
