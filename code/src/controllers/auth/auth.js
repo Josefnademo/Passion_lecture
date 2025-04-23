@@ -1,6 +1,6 @@
 //les imports
 import jwt from "jsonwebtoken";
-import { privateKey } from "./private_key.js";
+import  privateKey  from "./private_key.js";
 
 //déclaration de la fonction auth qui va permettre de vérifier le token donné par l'utilisateur avant de laisser une requête s'executer avec la fonction next();
 const auth = (req, res, next) => {

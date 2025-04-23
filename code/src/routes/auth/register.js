@@ -63,8 +63,7 @@ const router = express.Router();
  *                   example: Database error
  */
 router.post("/", async (req, res) => {
-  const { username, password, isAdmin = false } = req.body;
-
+  const { username, password } = req.body;
   try {
     const [existingUser] = await sequelize.query(
       "SELECT * FROM t_utilisateur WHERE username = ?",
@@ -84,7 +83,7 @@ router.post("/", async (req, res) => {
     await sequelize.query(
       "INSERT INTO t_utilisateur (username, hashed_password, date_creation, is_admin) VALUES (?, ?, NOW(), ?)",
       {
-        replacements: [username, hashedPassword, isAdmin],
+        replacements: [username, hashedPassword, false],
         type: sequelize.QueryTypes.INSERT,
       }
     );

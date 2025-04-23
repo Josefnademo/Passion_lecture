@@ -1,5 +1,6 @@
 import express from "express";
 import bookController from "../../controllers/booksController.js";
+import { auth } from "../../controllers/auth/auth.js";
 
 const router = express.Router();
 
@@ -64,7 +65,7 @@ const router = express.Router();
  *       500:
  *         description: Server error
  */
-router.post("/", bookController.createBook);
+router.post("/", auth, bookController.createBook);
 
 /**
  * @swagger

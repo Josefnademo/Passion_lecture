@@ -1,6 +1,7 @@
 import express from "express";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
+import privateKey from "../../controllers/auth/private_key.js"
 import { sequelize } from "../../db/sequelize.js";
 
 const router = express.Router();
@@ -63,7 +64,7 @@ router.post("/", async (req, res) => {
       return res.status(400).json({ message: "Invalid credentials" });
     }
 
-    const token = jwt.sign({ userId: user.utilisateur_id }, "yourSecretKey", {
+    const token = jwt.sign({ userId: user.utilisateur_id }, privateKey, {
       expiresIn: "24h",
     });
 

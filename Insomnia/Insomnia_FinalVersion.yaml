@@ -2,12 +2,12 @@ type: collection.insomnia.rest/5.0
 name: Scratch Pad
 meta:
   id: wrk_scratchpad
-  created: 1744096003789
-  modified: 1744096003789
+  created: 1745431024788
+  modified: 1745431024788
 collection:
   - name: category_routers
     meta:
-      id: fld_abcd5bef33b64687aaf322e091e29f2d
+      id: fld_57b153055c0f4dc6b8a38fb2072dbe74
       created: 1710233875203
       modified: 1710233875203
       sortKey: -1710233875203
@@ -15,7 +15,7 @@ collection:
       - url: http://localhost:9999/api/categories/
         name: getCategories
         meta:
-          id: req_30eb1a01861b422680d3067f64eb524d
+          id: req_a31330f3bb5247e9b1436811113ee602
           created: 1710234022045
           modified: 1741699849164
           isPrivate: false
@@ -24,9 +24,7 @@ collection:
         headers:
           - name: User-Agent
             value: insomnia/8.6.1
-            id: pair_8fb5c4a3f3dd4c7385420b9308e31e93
-          - id: pair_6581fb09664247e580203f57838f94e8
-            name: Authorization
+          - name: Authorization
             value: Bearer
               eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTcxMDIzMTA4NiwiZXhwIjoxNzQxNzg4Njg2fQ.0Sc_NWW__v6JzxBODCLHVjhXGRoh6wi5FU31gPN-8zc
         settings:
@@ -40,7 +38,7 @@ collection:
       - url: http://localhost:9999/api/categories/2
         name: getCategoryById
         meta:
-          id: req_f1e656b0682d4c368215cfb989bb70f7
+          id: req_ea8c7dad0b984805b63749b4e4daae56
           created: 1710234045238
           modified: 1741704570693
           isPrivate: false
@@ -49,9 +47,7 @@ collection:
         headers:
           - name: User-Agent
             value: insomnia/8.6.1
-            id: pair_8fb5c4a3f3dd4c7385420b9308e31e93
-          - id: pair_6581fb09664247e580203f57838f94e8
-            name: Authorization
+          - name: Authorization
             value: Bearer
               eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTcxMDIzMTA4NiwiZXhwIjoxNzQxNzg4Njg2fQ.0Sc_NWW__v6JzxBODCLHVjhXGRoh6wi5FU31gPN-8zc
         settings:
@@ -64,7 +60,7 @@ collection:
           rebuildPath: true
   - name: book_routers
     meta:
-      id: fld_015ae56f2d5e4585b7c8b531a78b8ca3
+      id: fld_393f03a0992f46cfb850622a2010ecbf
       created: 1710235985227
       modified: 1710235985227
       sortKey: -1710235985227
@@ -72,7 +68,7 @@ collection:
       - url: http://localhost:9999/api/categories/1/books
         name: getBooksByCategory
         meta:
-          id: req_f4020adcef4b4e3691798500e12e2a58
+          id: req_b2df1702e26042b5bfe40b65b33540ae
           created: 1710233898839
           modified: 1741766635436
           isPrivate: false
@@ -81,9 +77,7 @@ collection:
         headers:
           - name: User-Agent
             value: insomnia/8.6.1
-            id: pair_8fb5c4a3f3dd4c7385420b9308e31e93
-          - id: pair_6581fb09664247e580203f57838f94e8
-            name: Authorization
+          - name: Authorization
             value: Bearer
               eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTcxMDIzMTA4NiwiZXhwIjoxNzQxNzg4Njg2fQ.0Sc_NWW__v6JzxBODCLHVjhXGRoh6wi5FU31gPN-8zc
         settings:
@@ -97,7 +91,7 @@ collection:
       - url: http://localhost:9999/api/books/1
         name: deleteBook
         meta:
-          id: req_554005e6956a49679d14ab8148bbd726
+          id: req_edcaff31e7ea4f72a394d39cffc0ad25
           created: 1710235989452
           modified: 1742162763172
           isPrivate: false
@@ -106,9 +100,7 @@ collection:
         headers:
           - name: User-Agent
             value: insomnia/8.6.1
-            id: pair_ae3e0fa0827e4ae1966e1218c968c6cd
-          - id: pair_1fdf0d6f70d740febe91213b4e6a5ebd
-            name: Authorization
+          - name: Authorization
             value: Bearer
               eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTcxMDIzMTA4NiwiZXhwIjoxNzQxNzg4Njg2fQ.0Sc_NWW__v6JzxBODCLHVjhXGRoh6wi5FU31gPN-8zc
         settings:
@@ -122,7 +114,7 @@ collection:
       - url: http://localhost:9999/api/books
         name: getBooks
         meta:
-          id: req_608a7c30e8d042fd98e2e749775252c5
+          id: req_7bbc236bb075449eb2880a29bb0c09ba
           created: 1710245982533
           modified: 1741699835670
           isPrivate: false
@@ -131,7 +123,6 @@ collection:
         headers:
           - name: User-Agent
             value: insomnia/8.6.1
-            id: pair_db27163a8d0a48f5aa00eea8f7ea94db
         settings:
           renderRequestBody: true
           encodeUrl: true
@@ -143,7 +134,7 @@ collection:
       - url: http://localhost:9999/api/books/1
         name: getBookById
         meta:
-          id: req_090495fe74c34d5a9b1a269f4dc6cf49
+          id: req_5d0f3253b73f4f85968f5681bac71ed1
           created: 1710246408934
           modified: 1741699838394
           isPrivate: false
@@ -152,7 +143,6 @@ collection:
         headers:
           - name: User-Agent
             value: insomnia/8.6.1
-            id: pair_282b88af196b4c9f8fe951fdda4f0f90
         settings:
           renderRequestBody: true
           encodeUrl: true
@@ -164,9 +154,9 @@ collection:
       - url: http://localhost:9999/api/books
         name: postBook
         meta:
-          id: req_24ee212e17e74dda95608603f17c96e0
+          id: req_346a05cad7d34888b817c0f6d1fbd539
           created: 1710246720186
-          modified: 1744096683277
+          modified: 1745440449736
           isPrivate: false
           sortKey: -1710238487722.25
         method: POST
@@ -183,13 +173,14 @@ collection:
         headers:
           - name: Content-Type
             value: application/json
+            id: pair_c4db06c2bf2744f49b42782f9a62c0ae
           - name: User-Agent
             value: insomnia/8.6.1
-            id: pair_d26b99f8515d4f1dbe581e3e8c62b456
-          - id: pair_be41b4a7c9af4f01996787550adf51d9
-            name: Authorization
+            id: pair_8daf40e6c7354e87ad2310e4ff007d71
+          - name: Authorization
             value: Bearer
-              eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTcxMDIzMTA4NiwiZXhwIjoxNzQxNzg4Njg2fQ.0Sc_NWW__v6JzxBODCLHVjhXGRoh6wi5FU31gPN-8zc
+              eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjgsImlhdCI6MTc0NTQ0MDQxNCwiZXhwIjoxNzQ1NTI2ODE0fQ.Fj9BVYmj6D4PzgjjcrpnJ7dwFr75SAoXG10dQDnrceo
+            id: pair_a0be9dbc717349b7b2bc4876b8d55bbf
         settings:
           renderRequestBody: true
           encodeUrl: true
@@ -201,7 +192,7 @@ collection:
       - url: http://localhost:9999/api/books/1
         name: putBook
         meta:
-          id: req_e14810b0a058446eb63f866955fd0b16
+          id: req_3fbadd267f3b4dc1a7f98a3942075336
           created: 1710247701616
           modified: 1744096614248
           isPrivate: false
@@ -218,12 +209,9 @@ collection:
         headers:
           - name: Content-Type
             value: application/json
-            id: pair_90652a88530b45d89b1933e8bd7f66d5
           - name: User-Agent
             value: insomnia/8.6.1
-            id: pair_c03b693f9a1c4456b303abbd951eb987
-          - id: pair_4794908984ba476f9f7cf71ca2002411
-            name: Authorization
+          - name: Authorization
             value: Bearer
               eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTcxMDIzMTA4NiwiZXhwIjoxNzQxNzg4Njg2fQ.0Sc_NWW__v6JzxBODCLHVjhXGRoh6wi5FU31gPN-8zc
         settings:
@@ -237,7 +225,7 @@ collection:
       - url: http://localhost:9999/api/authors/1/books
         name: getBooksByAuthor
         meta:
-          id: req_94999f8a8857486ca06b246cb3b99045
+          id: req_83ebf1ded718473ab7c893046d3da988
           created: 1710249973640
           modified: 1741766642802
           isPrivate: false
@@ -256,7 +244,7 @@ collection:
           rebuildPath: true
   - name: login_routers
     meta:
-      id: fld_2ffaa91248084e4e809e1f17698b76d5
+      id: fld_37e615a180a344aa9cbe0f7ae2f19f7a
       created: 1710249615270
       modified: 1710249615270
       sortKey: -1710249615270
@@ -264,9 +252,9 @@ collection:
       - url: http://localhost:9999/api/auth/login
         name: postLogin
         meta:
-          id: req_99c6a231bd0d4b8abf9df3618cb40a79
+          id: req_c24395ab39b14dc18743c52c3040bf24
           created: 1710231044902
-          modified: 1742163749133
+          modified: 1745440398324
           isPrivate: false
           sortKey: -1710249619829
         method: POST
@@ -274,9 +262,8 @@ collection:
           mimeType: application/json
           text: |-
             { 
-             "username": "Piguet",
-            	"password": "password123",
-            	"isAdmin": "true"
+             "username": "Piguetto2",
+            	"password": "password123"
             }
         headers:
           - name: Content-Type
@@ -294,9 +281,9 @@ collection:
       - url: http://localhost:9999/api/users/
         name: postUser
         meta:
-          id: req_2cdd09514cd84f1aad1a18a2d2f9caab
+          id: req_2263a087712943db8beedf9e718ad72f
           created: 1741770735606
-          modified: 1742163769023
+          modified: 1745440390820
           isPrivate: false
           sortKey: -1741770735606
         method: POST
@@ -304,7 +291,7 @@ collection:
           mimeType: application/json
           text: |-
             { 
-             "username": "Piguetto",
+             "username": "Piguetto2",
             	"password": "password123",
             	"isAdmin": "true"
             }
@@ -324,7 +311,7 @@ collection:
       - url: http://localhost:9999/api/users/2
         name: deleteUser
         meta:
-          id: req_0e5be216f92349209ca06744768486ed
+          id: req_b034457e7eb74ad49e5ddb1a3ec36aae
           created: 1741772646462
           modified: 1741772852310
           isPrivate: false
@@ -344,7 +331,7 @@ collection:
       - url: http://localhost:9999/api/users/
         name: getUser
         meta:
-          id: req_9ec0f8a75c904f78a98add861d67f076
+          id: req_9f0634366fc8429aa0319ce6637749c0
           created: 1741772649636
           modified: 1741772806899
           isPrivate: false
@@ -363,7 +350,7 @@ collection:
           rebuildPath: true
   - name: author_routes
     meta:
-      id: fld_b5e27c7be8c74e45aff34b8c12e70683
+      id: fld_9fcaef18fe5a487396b74b0807c7d1ed
       created: 1710249759408
       modified: 1710249759408
       sortKey: -1710249759408
@@ -371,7 +358,7 @@ collection:
       - url: http://localhost:9999/api/authors
         name: getAuthors
         meta:
-          id: req_0a7997cc4b0348558568ff37bb527c04
+          id: req_d0209c78f490453b990020a0d71c2858
           created: 1710249779065
           modified: 1741699824041
           isPrivate: false
@@ -384,9 +371,7 @@ collection:
             value: application/json
           - name: User-Agent
             value: insomnia/8.6.1
-            id: pair_770e1f1cebef4149a3a018585d2da8ed
-          - id: pair_fcfdda20b2814451be2575f151af4be2
-            name: Authorization
+          - name: Authorization
             value: Bearer
               eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTcxMDIzMTA4NiwiZXhwIjoxNzQxNzg4Njg2fQ.0Sc_NWW__v6JzxBODCLHVjhXGRoh6wi5FU31gPN-8zc
         settings:
@@ -400,7 +385,7 @@ collection:
       - url: http://localhost:9999/api/authors/1
         name: getAuthorById
         meta:
-          id: req_0a0b1984148341059aa651f649971091
+          id: req_ec21b34dca5642699578af81388531e9
           created: 1710249832179
           modified: 1741699819708
           isPrivate: false
@@ -409,9 +394,7 @@ collection:
         headers:
           - name: User-Agent
             value: insomnia/8.6.1
-            id: pair_82409703b4fb49baa991dc7c56d70634
-          - id: pair_35e29d8b4108400a91f090e8b7510aee
-            name: Authorization
+          - name: Authorization
             value: Bearer
               eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTcxMDIzMTA4NiwiZXhwIjoxNzQxNzg4Njg2fQ.0Sc_NWW__v6JzxBODCLHVjhXGRoh6wi5FU31gPN-8zc
         settings:
@@ -424,7 +407,7 @@ collection:
           rebuildPath: true
   - name: Evaluation_routes(Notes-Comments)
     meta:
-      id: fld_69046b794e0b4de5b068751b9e7c25e1
+      id: fld_e3a1827500a949eeaf207288e1032527
       created: 1741697633295
       modified: 1741766698474
       sortKey: -1741697633295
@@ -432,7 +415,7 @@ collection:
       - url: http://localhost:9999/api/books/1/notes/1
         name: getNotesOf_1_BookById
         meta:
-          id: req_dd9843640f434904a5256dd93be50dcb
+          id: req_dbc15e5017d345c1b24592cb14b44804
           created: 1741697643287
           modified: 1744097761276
           isPrivate: false
@@ -452,9 +435,9 @@ collection:
       - url: "\thttp://localhost:9999/api/books/1/notes"
         name: postUsersEvaluationById
         meta:
-          id: req_cfe9a6039b0a4019994a5412744f8a80
+          id: req_5fe26a23f5144bb9af1525acd76b39bc
           created: 1741697759992
-          modified: 1744097572348
+          modified: 1745432099251
           isPrivate: false
           sortKey: -1741697759992
         method: POST
@@ -471,8 +454,14 @@ collection:
         headers:
           - name: Content-Type
             value: application/json
+            id: pair_7fa6887d68244cfd8579483575345b9b
           - name: User-Agent
             value: insomnia/10.3.1
+            id: pair_770cf415867f4a8aa39f352b991d6187
+          - id: pair_13691d9790134d62b5d026a6a309eb75
+            name: bearer
+            value: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjYsImlhdCI6MTc0NTQzMjA1MywiZXhwIjoxNzQ1NTE4NDUzfQ.ocTGwpX-jhlEO8a7f3OCmgSw3HZ5eX5FvT7J7pV-x3w
+            disabled: false
         settings:
           renderRequestBody: true
           encodeUrl: true
@@ -484,7 +473,7 @@ collection:
       - url: http://localhost:9999/api/books/1/notes/1
         name: deleteUsersEvaluationById
         meta:
-          id: req_7d53d340e1774b75a3d25d9c0f4fd613
+          id: req_a45fb70b39124af1863598fe06c7c29c
           created: 1741764530702
           modified: 1741768119449
           isPrivate: false
@@ -504,7 +493,7 @@ collection:
       - url: http://localhost:9999/api/books/1/notes/1
         name: putUsersEvaluationById
         meta:
-          id: req_2762c380564f47d297a25bfe99d84496
+          id: req_a73897c11e46402f952794509ba3bf2e
           created: 1741764686048
           modified: 1744097660497
           isPrivate: false
@@ -535,7 +524,7 @@ collection:
       - url: "\thttp://localhost:9999/api/books/5/notes"
         name: getEvaluationBook
         meta:
-          id: req_63431985d9194a8ebc94d03bee47f676
+          id: req_4276cab8e6144fe3accaa136b3d63c2d
           created: 1741765275277
           modified: 1741771776353
           isPrivate: false
@@ -556,12 +545,12 @@ cookieJar:
   name: Default Jar
   meta:
     id: jar_99d30891da4bdcebc63947a8fc17f076de878684
-    created: 1744096011537
-    modified: 1744096011537
+    created: 1745431034570
+    modified: 1745431034570
 environments:
   name: Base Environment
   meta:
     id: env_99d30891da4bdcebc63947a8fc17f076de878684
-    created: 1744096011535
-    modified: 1744096011535
+    created: 1745431034447
+    modified: 1745431034447
     isPrivate: false
